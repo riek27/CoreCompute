@@ -19,7 +19,7 @@
             --accent: #9c27b0;
             --text: #ffffff;
             --text-secondary: #b3b3b3;
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         
         * {
@@ -34,6 +34,7 @@
             background: linear-gradient(135deg, var(--primary) 0%, #050811 100%);
             overflow-x: hidden;
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
         
         .luxury-background {
@@ -43,8 +44,8 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
-                        radial-gradient(circle at 90% 80%, rgba(185, 242, 255, 0.05) 0%, transparent 20%),
+            background: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 20%),
+                        radial-gradient(circle at 90% 80%, rgba(185, 242, 255, 0.08) 0%, transparent 20%),
                         linear-gradient(135deg, var(--primary) 0%, #050811 100%);
             overflow: hidden;
         }
@@ -66,7 +67,7 @@
             background: var(--gold);
             border-radius: 50%;
             box-shadow: 0 0 15px 3px rgba(212, 175, 55, 0.7);
-            animation: float 15s infinite linear;
+            animation: float 15s infinite ease-in-out;
         }
         
         .container {
@@ -90,7 +91,8 @@
         
         header.scrolled {
             padding: 1rem 0;
-            background: rgba(10, 14, 23, 0.95);
+            background: rgba(10, 14, 23, 0.97);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
         
         nav {
@@ -181,6 +183,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 1px;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
         }
         
         .hero p {
@@ -311,7 +314,7 @@
             align-items: center;
             color: #000;
             font-size: 1.8rem;
-            animation: luxury-float-around 18s infinite linear;
+            animation: luxury-float-around 18s infinite ease-in-out;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             transform-style: preserve-3d;
             transform: translateZ(30px);
@@ -331,7 +334,7 @@
             position: absolute;
             background: linear-gradient(135deg, var(--gold), var(--gold-dark));
             box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
-            animation: gold-float 25s infinite linear;
+            animation: gold-float 25s infinite ease-in-out;
         }
         
         .shape-1 {
@@ -703,6 +706,68 @@
             border-color: var(--gold);
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        
+        /* Success Modal */
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 14, 23, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .success-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: linear-gradient(145deg, rgba(15, 20, 35, 0.95), rgba(10, 14, 23, 0.95));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 25px;
+            padding: 4rem;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transform: translateY(50px);
+            transition: var(--transition);
+        }
+        
+        .success-modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-content i {
+            font-size: 5rem;
+            color: var(--gold);
+            margin-bottom: 2rem;
+        }
+        
+        .modal-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--platinum), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .modal-content p {
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
         }
         
         /* Chatbot Widget */
@@ -1104,6 +1169,16 @@
 <body>
     <div class="luxury-background" id="luxury-background"></div>
     
+    <!-- Success Modal -->
+    <div class="success-modal" id="success-modal">
+        <div class="modal-content">
+            <i class="fas fa-check-circle"></i>
+            <h3>Thank You!</h3>
+            <p>We've added you to our waitlist. You'll be among the first to experience CoreCompute.</p>
+            <button class="cta-button" id="modal-close">Continue</button>
+        </div>
+    </div>
+    
     <header>
         <div class="container">
             <nav>
@@ -1354,7 +1429,7 @@
                 <h2>Join The Compute Revolution</h2>
                 <p>Be among the first to access our decentralized AI compute platform. Limited early access spots available.</p>
                 
-                <form class="waitlist-form">
+                <form class="waitlist-form" id="waitlist-form">
                     <div class="form-group">
                         <input type="text" placeholder="Full Name" required>
                     </div>
@@ -1565,11 +1640,17 @@
             }
         });
         
-        // Waitlist form submission
-        document.querySelector('.waitlist-form').addEventListener('submit', function(e) {
+        // Waitlist form submission with success modal
+        document.getElementById('waitlist-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for joining our waitlist! We will be in touch soon.');
+            const successModal = document.getElementById('success-modal');
+            successModal.classList.add('active');
             this.reset();
+        });
+        
+        // Close modal functionality
+        document.getElementById('modal-close').addEventListener('click', function() {
+            document.getElementById('success-modal').classList.remove('active');
         });
         
         // Initialize luxury elements
