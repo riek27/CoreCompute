@@ -43,11 +43,33 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -2;
             background: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 20%),
                         radial-gradient(circle at 90% 80%, rgba(185, 242, 255, 0.08) 0%, transparent 20%),
                         linear-gradient(135deg, var(--primary) 0%, #050811 100%);
             overflow: hidden;
+        }
+        
+        .gpu-3d-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        
+        .gpu-3d-model {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120vmin;
+            height: 120vmin;
+            transform: translate(-50%, -50%);
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNkNGFmMzciLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMWU1YjkiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBkPSJNMTAwLDEwMCBINzAwIFY1MDAgSDEwMCBaIiBmaWxsPSJ1cmwoI2cpIiBzdHJva2U9IiNkNGFmMzciIHN0cm9rZS13aWR0aD0iMyIgZmlsbC1vcGFjaXR5PSIwLjIiLz48cmVjdCB4PSIxNTAiIHk9IjE1MCIgd2lkdGg9IjUwIiBoZWlnaHQ9IjMwMCIgZmlsbD0idXJsKCNnKSIgc3Ryb2tlPSIjZDRhZjM3IiBzdHJva2Utd2lkdGg9IjIiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PHJlY3QgeD0iMjUwIiB5PSIxNTAiIHdpZHRoPSIyMDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2cpIiBzdHJva2U9IiNkNGFmMzciIHN0cm9rZS13aWR0aD0iMiIgZmlsbC1vcGFjaXR5PSIwLjEiLz48cmVjdCB4PSI1MDAiIHk9IjE1MCIgd2lkdGg9IjUwIiBoZWlnaHQ9IjMwMCIgZmlsbD0idXJsKCNnKSIgc3Ryb2tlPSIjZDRhZjM3IiBzdHJva2Utd2lkdGg9IjIiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PGNpcmNsZSBjeD0iNDAwIiBjeT0iMjAwIiByPSI0MCIgZmlsbD0idXJsKCNnKSIgc3Ryb2tlPSIjZDRhZjM3IiBzdHJva2Utd2lkdGg9IjIiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMzUwIiByPSI0MCIgZmlsbD0idXJsKCNnKSIgc3Ryb2tlPSIjZDRhZjM3IiBzdHJva2Utd2lkdGg9IjIiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PGNpcmNsZSBjeD0iNTAwIiBjeT0iMzUwIiByPSI0MCIgZmlsbD0idXJsKCNnKSIgc3Ryb2tlPSIjZDRhZjM3IiBzdHJva2Utd2lkdGg9IjIiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+') center/contain no-repeat;
+            animation: slow-rotate 60s infinite linear;
         }
         
         .diamond {
@@ -523,6 +545,7 @@
             height: 0;
             background: linear-gradient(to bottom, var(--gold), var(--gold-dark));
             transition: var(--transition);
+            z-index: 1;
         }
         
         .feature-card:hover::before {
@@ -542,6 +565,8 @@
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 2;
         }
         
         .feature-card h3 {
@@ -549,12 +574,16 @@
             margin-bottom: 1.2rem;
             color: var(--text);
             font-family: 'Playfair Display', serif;
+            position: relative;
+            z-index: 2;
         }
         
         .feature-card p {
             color: var(--text-secondary);
             font-weight: 300;
             line-height: 1.8;
+            position: relative;
+            z-index: 2;
         }
         
         /* Team Section */
@@ -1226,6 +1255,15 @@
             }
         }
         
+        @keyframes slow-rotate {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        
         /* Responsive Design */
         @media (max-width: 1200px) {
             .hero h1 {
@@ -1290,6 +1328,11 @@
             .demo-container iframe {
                 height: 300px;
             }
+            
+            .gpu-3d-model {
+                width: 150vmin;
+                height: 150vmin;
+            }
         }
         
         @media (max-width: 576px) {
@@ -1317,11 +1360,19 @@
             .mvp-content h2 {
                 font-size: 2.5rem;
             }
+            
+            .gpu-3d-model {
+                width: 180vmin;
+                height: 180vmin;
+            }
         }
     </style>
 </head>
 <body>
     <div class="luxury-background" id="luxury-background"></div>
+    <div class="gpu-3d-background">
+        <div class="gpu-3d-model"></div>
+    </div>
     
     <!-- Success Modal -->
     <div class="success-modal" id="success-modal">
@@ -2005,6 +2056,17 @@
                 rotateY = (e.clientX / window.innerWidth - 0.5) * 20;
                 
                 gpuContainer.style.transform = `translate(-50%, -50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+        }
+        
+        // Parallax effect for the 3D GPU background
+        const gpuModel = document.querySelector('.gpu-3d-model');
+        if (gpuModel) {
+            document.addEventListener('mousemove', (e) => {
+                const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+                const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
+                
+                gpuModel.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px)) rotate(var(--rotation))`;
             });
         }
     </script>
