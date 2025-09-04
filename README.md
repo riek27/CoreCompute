@@ -19,7 +19,7 @@ CoreCompute is a next-generation decentralized GPU network that enables anyone w
 ## 🚀 MVP / Demo
 
 Our current MVP simulates GPU allocation and job scheduling to demonstrate the potential of a fully decentralized AI compute network.  
-- Early access signups: [Waitlist Link](#)
+- Early access signups:https://riek27.github.io/CoreCompute-mvp-demo/# 
 - GitHub repo contains demo scripts for simulated workloads.
 
 ---
