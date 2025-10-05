@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoreCompute | Premium Decentralized AI Compute</title>
+    <title>HyperlumeAI | Premium Decentralized AI Compute</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
     <style>
         :root {
             --primary: #0a0e17;
             --primary-light: #131827;
             --secondary: #1a2035;
-            --gold: #d4af37;
-            --gold-light: #f1e5b9;
-            --gold-dark: #b8941f;
+            --electric-blue: #00a8ff;
+            --electric-blue-light: #4bc6ff;
+            --electric-blue-dark: #0081cc;
+            --neon-purple: #9c27b0;
+            --neon-purple-light: #d05ce3;
             --platinum: #e5e4e2;
             --diamond: #b9f2ff;
-            --accent: #9c27b0;
+            --accent: #00ffcc;
             --text: #ffffff;
             --text-secondary: #b3b3b3;
             --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -44,10 +48,24 @@
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 20%),
-                        radial-gradient(circle at 90% 80%, rgba(185, 242, 255, 0.08) 0%, transparent 20%),
-                        linear-gradient(135deg, var(--primary) 0%, #050811 100%);
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(0, 168, 255, 0.08) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(156, 39, 176, 0.08) 0%, transparent 20%),
+                linear-gradient(135deg, var(--primary) 0%, #050811 100%);
             overflow: hidden;
+        }
+        
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
         }
         
         .gpu-3d-background {
@@ -57,39 +75,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.15;
             pointer-events: none;
-        }
-        
-        .gpu-3d-model {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 120vmin;
-            height: 120vmin;
-            transform: translate(-50%, -50%);
-            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNkNGFmMzciLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMWU1YjkiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBkPSJNMTAwLDEwMCBINzAwIFY1MDAgSDEwMCBaIiBmaWxsPSJ1cmwoI2cpIiBzdHJva2U9IiNkNGFmMzciIHN0cm9rZS13aWR0aD0iMyIgZmlsbC1vcGFjaXR5PSIwLjIiLz48cmVjdCB4PSIxNTAiIHk9IjE1MCIgd2lkdGg9IjUwIiBoZWlnaHQ9IjMwMCIgZmlsbD0idXJsKCNnKSIgc3Ryb2tlPSIjZDRhZjM3IiBzdHJva2Utd2lkdGg9IjIiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PHJlY3QgeD0iMjUwIiB5PSIxNTAiIHdpZHRoPSIyMDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2cpIiBzdHJva2U9IiNkNGFmMzciIHN0cm9rZS13aWR0aD0iMiIgZmlsbC1vcGFjaXR5PSIwLjEiLz48cmVjdCB4PSI1MDAiIHk9IjE1MCIgd2lkdGg9IjUwIiBoZWlnaHQ9IjMwMCIgZmlsbD0idXJsKCNnKSIgc3Ryb2tlPSIjZDRhZjM3IiBzdHJva2Utd2lkdGg9IjIiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PGNpcmNsZSBjeD0iNDAwIiBjeT0iMjAwIiByPSI0MCIgZmlsbD0idXJsKCNnKSIgc3Ryb2tlPSIjZDRhZjM3IiBzdHJva2Utd2lkdGg9IjIiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMzUwIiByPSI0MCIgZmlsbD0idXJsKCNnKSIgc3Ryb2tlPSIjZDRhZjM3IiBzdHJva2Utd2lkdGg9IjIiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PGNpcmNsZSBjeD0iNTAwIiBjeT0iMzUwIiByPSI0MCIgZmlsbD0idXJsKCNnKSIgc3Ryb2tlPSIjZDRhZjM3IiBzdHJva2Utd2lkdGg9IjIiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+') center/contain no-repeat;
-            animation: slow-rotate 60s infinite linear;
-        }
-        
-        .diamond {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: var(--diamond);
-            border-radius: 50%;
-            box-shadow: 0 0 10px 2px rgba(185, 242, 255, 0.5);
-            animation: twinkle 5s infinite;
-        }
-        
-        .gold-particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: var(--gold);
-            border-radius: 50%;
-            box-shadow: 0 0 15px 3px rgba(212, 175, 55, 0.7);
-            animation: float 15s infinite ease-in-out;
         }
         
         .container {
@@ -135,8 +121,8 @@
         }
         
         .logo span {
-            color: var(--gold);
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            color: var(--electric-blue);
+            text-shadow: 0 0 15px rgba(0, 168, 255, 0.5);
         }
         
         .nav-links {
@@ -153,7 +139,7 @@
         }
         
         .nav-links a:hover {
-            color: var(--gold);
+            color: var(--electric-blue);
         }
         
         .nav-links a::after {
@@ -163,7 +149,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--gold);
+            background: var(--electric-blue);
             transition: var(--transition);
         }
         
@@ -231,11 +217,11 @@
         }
         
         .mobile-nav a:hover {
-            color: var(--gold);
+            color: var(--electric-blue);
         }
         
         .cta-button {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            background: linear-gradient(135deg, var(--electric-blue), var(--electric-blue-dark));
             color: #000;
             border: none;
             padding: 0.9rem 2rem;
@@ -243,7 +229,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 168, 255, 0.3);
             letter-spacing: 0.5px;
             text-decoration: none;
             display: inline-block;
@@ -251,7 +237,7 @@
         
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 15px 25px rgba(0, 168, 255, 0.4);
         }
         
         /* Hero Section */
@@ -267,11 +253,11 @@
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 1.5rem;
-            background: linear-gradient(to right, var(--platinum), var(--gold), var(--gold-light));
+            background: linear-gradient(to right, var(--platinum), var(--electric-blue), var(--electric-blue-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 1px;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            text-shadow: 0 0 30px rgba(0, 168, 255, 0.3);
         }
         
         .hero p {
@@ -304,16 +290,16 @@
         }
         
         .secondary-button:hover {
-            border-color: var(--gold);
-            color: var(--gold);
+            border-color: var(--electric-blue);
+            color: var(--electric-blue);
             transform: translateY(-3px);
         }
         
         /* MVP Demo Button */
         .demo-button {
             background: transparent;
-            color: var(--gold);
-            border: 2px solid var(--gold);
+            color: var(--electric-blue);
+            border: 2px solid var(--electric-blue);
             padding: 0.9rem 2rem;
             border-radius: 50px;
             font-weight: 600;
@@ -323,18 +309,18 @@
             text-decoration: none;
             display: inline-block;
             margin-top: 1.5rem;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 20px rgba(0, 168, 255, 0.3);
         }
         
         .demo-button:hover {
-            background: var(--gold);
+            background: var(--electric-blue);
             color: #000;
             transform: translateY(-3px);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 30px rgba(0, 168, 255, 0.5);
         }
         
-        /* Luxury GPU Visualization */
-        .luxury-visualization {
+        /* 3D Visualization Container */
+        .visualization-3d {
             position: relative;
             height: 600px;
             width: 100%;
@@ -342,149 +328,11 @@
             perspective: 1000px;
         }
         
-        .floating-gpu {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 350px;
-            height: 350px;
-            transform-style: preserve-3d;
-            animation: luxury-float 10s infinite ease-in-out;
-        }
-        
-        .gpu-card {
-            position: absolute;
+        #gpu-canvas {
             width: 100%;
             height: 100%;
-            background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), rgba(180, 150, 50, 0.1));
-            border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 25px;
-            backdrop-filter: blur(15px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transition: var(--transition);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-        }
-        
-        .gpu-card::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(transparent, transparent, transparent, var(--gold));
-            animation: rotate 6s linear infinite;
-        }
-        
-        .gpu-card::after {
-            content: '';
-            position: absolute;
-            inset: 4px;
-            background: linear-gradient(145deg, rgba(10, 14, 23, 0.95), rgba(15, 20, 35, 0.95));
-            border-radius: 22px;
-        }
-        
-        .gpu-content {
-            position: relative;
-            z-index: 1;
-            padding: 2.5rem;
-            text-align: center;
-        }
-        
-        .gpu-content i {
-            font-size: 5rem;
-            margin-bottom: 2rem;
-            color: var(--gold);
-            text-shadow: 0 0 25px rgba(212, 175, 55, 0.8);
-            animation: pulse 3s infinite ease-in-out;
-        }
-        
-        .gpu-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--text);
-            font-family: 'Playfair Display', serif;
-        }
-        
-        .luxury-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-        }
-        
-        .luxury-element {
-            position: absolute;
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(45deg, var(--gold), var(--gold-light));
-            border-radius: 18px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #000;
-            font-size: 1.8rem;
-            animation: luxury-float-around 18s infinite ease-in-out;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            transform-style: preserve-3d;
-            transform: translateZ(30px);
-        }
-        
-        /* Gold 3D Shapes */
-        .gold-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-        
-        .gold-shape {
-            position: absolute;
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
-            animation: gold-float 25s infinite ease-in-out;
-        }
-        
-        .shape-1 {
-            width: 120px;
-            height: 120px;
-            top: 10%;
-            left: 10%;
-            border-radius: 50%;
-            animation-delay: 0s;
-        }
-        
-        .shape-2 {
-            width: 100px;
-            height: 100px;
-            top: 20%;
-            right: 15%;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            animation-delay: 6s;
-        }
-        
-        .shape-3 {
-            width: 140px;
-            height: 140px;
-            bottom: 30%;
-            left: 15%;
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            animation-delay: 12s;
-        }
-        
-        .shape-4 {
-            width: 110px;
-            height: 110px;
-            bottom: 20%;
-            right: 20%;
-            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-            animation-delay: 18s;
         }
         
         /* Features Section */
@@ -503,7 +351,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
-            background: linear-gradient(to right, var(--platinum), var(--gold));
+            background: linear-gradient(to right, var(--platinum), var(--electric-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 1px;
@@ -543,7 +391,7 @@
             left: 0;
             width: 6px;
             height: 0;
-            background: linear-gradient(to bottom, var(--gold), var(--gold-dark));
+            background: linear-gradient(to bottom, var(--electric-blue), var(--electric-blue-dark));
             transition: var(--transition);
             z-index: 1;
         }
@@ -555,14 +403,14 @@
         .feature-card:hover {
             transform: translateY(-12px) translateZ(15px);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-            border-color: rgba(212, 175, 55, 0.3);
+            border-color: rgba(0, 168, 255, 0.3);
         }
         
         .feature-icon {
             font-size: 3rem;
             margin-bottom: 2rem;
-            color: var(--gold);
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--electric-blue);
+            background: linear-gradient(135deg, var(--electric-blue), var(--electric-blue-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             position: relative;
@@ -601,7 +449,7 @@
         
         .team-member {
             background: linear-gradient(145deg, rgba(15, 20, 35, 0.7), rgba(10, 14, 23, 0.7));
-            border: 1px solid rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(0, 168, 255, 0.1);
             border-radius: 25px;
             padding: 2.5rem;
             text-align: center;
@@ -618,7 +466,7 @@
             left: 0;
             width: 100%;
             height: 0;
-            background: linear-gradient(to bottom, rgba(212, 175, 55, 0.1), transparent);
+            background: linear-gradient(to bottom, rgba(0, 168, 255, 0.1), transparent);
             transition: var(--transition);
             z-index: -1;
         }
@@ -629,7 +477,7 @@
         
         .team-member:hover {
             transform: translateY(-10px);
-            border-color: var(--gold);
+            border-color: var(--electric-blue);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
         }
         
@@ -638,7 +486,7 @@
             height: 140px;
             border-radius: 50%;
             margin: 0 auto 2rem;
-            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+            background: linear-gradient(145deg, var(--electric-blue), var(--electric-blue-dark));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -663,7 +511,7 @@
         }
         
         .team-member .role {
-            color: var(--gold);
+            color: var(--electric-blue);
             margin-bottom: 1.5rem;
             font-weight: 500;
             font-size: 1.1rem;
@@ -695,7 +543,7 @@
         }
         
         .social-links a:hover {
-            background: var(--gold);
+            background: var(--electric-blue);
             color: #000;
             transform: translateY(-5px);
         }
@@ -716,7 +564,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
             margin-bottom: 2rem;
-            background: linear-gradient(to right, var(--platinum), var(--gold));
+            background: linear-gradient(to right, var(--platinum), var(--electric-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -730,7 +578,7 @@
         
         .demo-container {
             background: linear-gradient(145deg, rgba(15, 20, 35, 0.7), rgba(10, 14, 23, 0.7));
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(0, 168, 255, 0.2);
             border-radius: 25px;
             padding: 3rem;
             backdrop-filter: blur(15px);
@@ -767,7 +615,7 @@
         }
         
         .faq-item:hover {
-            border-color: rgba(212, 175, 55, 0.3);
+            border-color: rgba(0, 168, 255, 0.3);
         }
         
         .faq-question {
@@ -783,12 +631,12 @@
         }
         
         .faq-question:hover {
-            background: rgba(212, 175, 55, 0.05);
+            background: rgba(0, 168, 255, 0.05);
         }
         
         .faq-question i {
             transition: var(--transition);
-            color: var(--gold);
+            color: var(--electric-blue);
         }
         
         .faq-answer {
@@ -826,7 +674,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 4rem;
             margin-bottom: 2rem;
-            background: linear-gradient(to right, var(--platinum), var(--gold));
+            background: linear-gradient(to right, var(--platinum), var(--electric-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 1px;
@@ -863,9 +711,9 @@
         
         .form-group input:focus {
             outline: none;
-            border-color: var(--gold);
+            border-color: var(--electric-blue);
             background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 20px rgba(0, 168, 255, 0.2);
         }
         
         /* Success Modal */
@@ -892,7 +740,7 @@
         
         .modal-content {
             background: linear-gradient(145deg, rgba(15, 20, 35, 0.95), rgba(10, 14, 23, 0.95));
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(0, 168, 255, 0.3);
             border-radius: 25px;
             padding: 4rem;
             text-align: center;
@@ -910,7 +758,7 @@
         
         .modal-content i {
             font-size: 5rem;
-            color: var(--gold);
+            color: var(--electric-blue);
             margin-bottom: 2rem;
         }
         
@@ -918,7 +766,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--platinum), var(--gold));
+            background: linear-gradient(to right, var(--platinum), var(--electric-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -942,7 +790,7 @@
             width: 70px;
             height: 70px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            background: linear-gradient(135deg, var(--electric-blue), var(--electric-blue-dark));
             color: #000;
             border: none;
             display: flex;
@@ -967,7 +815,7 @@
             height: 500px;
             background: rgba(15, 20, 35, 0.95);
             border-radius: 25px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(0, 168, 255, 0.3);
             backdrop-filter: blur(15px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
             display: flex;
@@ -996,7 +844,7 @@
         }
         
         .chatbot-header i {
-            color: var(--gold);
+            color: var(--electric-blue);
             font-size: 1.5rem;
         }
         
@@ -1034,14 +882,14 @@
         }
         
         .bot-message {
-            background: rgba(212, 175, 55, 0.15);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(0, 168, 255, 0.15);
+            border: 1px solid rgba(0, 168, 255, 0.3);
             align-self: flex-start;
         }
         
         .user-message {
-            background: rgba(0, 102, 255, 0.15);
-            border: 1px solid rgba(0, 102, 255, 0.3);
+            background: rgba(156, 39, 176, 0.15);
+            border: 1px solid rgba(156, 39, 176, 0.3);
             align-self: flex-end;
         }
         
@@ -1064,14 +912,14 @@
         
         .chatbot-input input:focus {
             outline: none;
-            border-color: var(--gold);
+            border-color: var(--electric-blue);
         }
         
         .chatbot-input button {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: var(--gold);
+            background: var(--electric-blue);
             color: #000;
             border: none;
             display: flex;
@@ -1122,7 +970,7 @@
         }
         
         .footer-links a:hover {
-            color: var(--gold);
+            color: var(--electric-blue);
             padding-left: 5px;
         }
         
@@ -1146,7 +994,7 @@
         }
         
         .footer-social a:hover {
-            background: var(--gold);
+            background: var(--electric-blue);
             color: #000;
             transform: translateY(-5px);
         }
@@ -1161,53 +1009,14 @@
         }
         
         /* Animations */
-        @keyframes luxury-float {
-            0%, 100% {
-                transform: translate(-50%, -50%) rotate3d(0.5, 1, 0, 0deg);
-            }
-            33% {
-                transform: translate(-50%, -55%) rotate3d(0.5, 1, 0, 5deg);
-            }
-            66% {
-                transform: translate(-50%, -52%) rotate3d(-0.5, 1, 0, -5deg);
-            }
-        }
-        
-        @keyframes luxury-float-around {
-            0% {
-                transform: translate(0, 0) rotate(0deg) translateZ(30px);
-            }
-            25% {
-                transform: translate(50px, -50px) rotate(5deg) translateZ(30px);
-            }
-            50% {
-                transform: translate(0, -100px) rotate(0deg) translateZ(30px);
-            }
-            75% {
-                transform: translate(-50px, -50px) rotate(-5deg) translateZ(30px);
-            }
-            100% {
-                transform: translate(0, 0) rotate(0deg) translateZ(30px);
-            }
-        }
-        
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
-                text-shadow: 0 0 25px rgba(212, 175, 55, 0.8);
+                text-shadow: 0 0 25px rgba(0, 168, 255, 0.8);
             }
             50% {
                 transform: scale(1.1);
-                text-shadow: 0 0 35px rgba(212, 175, 55, 1);
+                text-shadow: 0 0 35px rgba(0, 168, 255, 1);
             }
         }
         
@@ -1228,39 +1037,12 @@
             }
         }
         
-        @keyframes gold-float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-            }
-            25% {
-                transform: translateY(-30px) rotate(5deg);
-            }
-            50% {
-                transform: translateY(-60px) rotate(0deg);
-            }
-            75% {
-                transform: translateY(-30px) rotate(-5deg);
-            }
-            100% {
-                transform: translateY(0) rotate(0deg);
-            }
-        }
-        
         @keyframes twinkle {
             0%, 100% {
                 opacity: 0.3;
             }
             50% {
                 opacity: 1;
-            }
-        }
-        
-        @keyframes slow-rotate {
-            0% {
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-            100% {
-                transform: translate(-50%, -50%) rotate(360deg);
             }
         }
         
@@ -1320,18 +1102,8 @@
                 right: -20px;
             }
             
-            .floating-gpu {
-                width: 280px;
-                height: 280px;
-            }
-            
             .demo-container iframe {
                 height: 300px;
-            }
-            
-            .gpu-3d-model {
-                width: 150vmin;
-                height: 150vmin;
             }
         }
         
@@ -1360,26 +1132,20 @@
             .mvp-content h2 {
                 font-size: 2.5rem;
             }
-            
-            .gpu-3d-model {
-                width: 180vmin;
-                height: 180vmin;
-            }
         }
     </style>
 </head>
 <body>
+    <div class="background-image"></div>
     <div class="luxury-background" id="luxury-background"></div>
-    <div class="gpu-3d-background">
-        <div class="gpu-3d-model"></div>
-    </div>
+    <div class="gpu-3d-background" id="gpu-3d-background"></div>
     
     <!-- Success Modal -->
     <div class="success-modal" id="success-modal">
         <div class="modal-content">
             <i class="fas fa-check-circle"></i>
             <h3>Thank You!</h3>
-            <p>We've added you to our waitlist. You'll be among the first to experience CoreCompute.</p>
+            <p>We've added you to our waitlist. You'll be among the first to experience HyperlumeAI.</p>
             <button class="cta-button" id="modal-close">Continue</button>
         </div>
     </div>
@@ -1387,7 +1153,7 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Core<span>Compute</span></div>
+                <div class="logo">Hyper<span>lumeAI</span></div>
                 <div class="nav-links">
                     <a href="#platform">Platform</a>
                     <a href="#solutions">Solutions</a>
@@ -1424,38 +1190,8 @@
             </div>
             <a href="#mvp-demo" class="demo-button">View MVP Demo</a>
             
-            <div class="luxury-visualization">
-                <div class="floating-gpu">
-                    <div class="gpu-card">
-                        <div class="gpu-content">
-                            <i class="fas fa-microchip"></i>
-                            <h3>GPU Power</h3>
-                            <p>Contribute & Earn</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="luxury-elements">
-                    <div class="luxury-element" style="top: 10%; left: 15%; animation-delay: 0s;">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <div class="luxury-element" style="top: 20%; right: 10%; animation-delay: 2s;">
-                        <i class="fas fa-link"></i>
-                    </div>
-                    <div class="luxury-element" style="bottom: 30%; left: 10%; animation-delay: 4s;">
-                        <i class="fas fa-coins"></i>
-                    </div>
-                    <div class="luxury-element" style="bottom: 20%; right: 20%; animation-delay: 6s;">
-                        <i class="fas fa-server"></i>
-                    </div>
-                </div>
-                
-                <div class="gold-shapes">
-                    <div class="gold-shape shape-1"></div>
-                    <div class="gold-shape shape-2"></div>
-                    <div class="gold-shape shape-3"></div>
-                    <div class="gold-shape shape-4"></div>
-                </div>
+            <div class="visualization-3d">
+                <canvas id="gpu-canvas"></canvas>
             </div>
         </div>
     </section>
@@ -1523,12 +1259,12 @@
         <div class="container">
             <div class="section-title">
                 <h2>Experience Our MVP Demo</h2>
-                <p>See CoreCompute in action with our interactive demonstration</p>
+                <p>See HyperlumeAI in action with our interactive demonstration</p>
             </div>
             
             <div class="mvp-content">
                 <div class="demo-container">
-                    <iframe src="https://riek27.github.io/CoreCompute-mvp-demo/" title="CoreCompute MVP Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="https://riek27.github.io/CoreCompute-mvp-demo/" title="HyperlumeAI MVP Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <a href="https://riek27.github.io/CoreCompute-mvp-demo/" target="_blank" class="demo-button">Open Demo in New Tab</a>
             </div>
@@ -1689,7 +1425,29 @@
                     </div>
                 </div>
                 
+                <div class="team-member">
+                    <div class="member-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Alex Johnson</h3>
+                    <div class="role">CTO</div>
+                    <p>Former Google AI engineer with deep expertise in distributed systems and GPU optimization for machine learning workloads.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
                 
+                <div class="team-member">
+                    <div class="member-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Sarah Chen</h3>
+                    <div class="role">Head of Product</div>
+                    <p>Product leader with experience at AWS and NVIDIA, focused on creating intuitive developer experiences for AI infrastructure.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
             </div>
@@ -1700,13 +1458,13 @@
         <div class="container">
             <div class="section-title">
                 <h2>Frequently Asked Questions</h2>
-                <p>Everything you need to know about the CoreCompute platform</p>
+                <p>Everything you need to know about the HyperlumeAI platform</p>
             </div>
             
             <div class="faq-container">
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>How does CoreCompute ensure the security of my AI models and data?</span>
+                        <span>How does HyperlumeAI ensure the security of my AI models and data?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
@@ -1736,7 +1494,7 @@
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>How does CoreCompute compare to traditional cloud providers?</span>
+                        <span>How does HyperlumeAI compare to traditional cloud providers?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
@@ -1783,7 +1541,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>CoreCompute</h3>
+                    <h3>HyperlumeAI</h3>
                     <p>The world's largest decentralized AI compute network, powering the next generation of AI innovation.</p>
                     <div class="footer-social">
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1828,7 +1586,7 @@
             </div>
             
             <div class="copyright">
-                <p>&copy; 2025 CoreCompute. All rights reserved.</p>
+                <p>&copy; 2025 HyperlumeAI. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1842,14 +1600,14 @@
         <div class="chatbot-container" id="chatbot-container">
             <div class="chatbot-header">
                 <i class="fas fa-robot"></i>
-                <h3>CoreCompute Assistant</h3>
+                <h3>HyperlumeAI Assistant</h3>
                 <button class="chatbot-close" id="chatbot-close">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="chatbot-messages" id="chatbot-messages">
                 <div class="message bot-message">
-                    Hello! I'm the CoreCompute assistant. How can I help you today?
+                    Hello! I'm the HyperlumeAI assistant. How can I help you today?
                 </div>
             </div>
             <div class="chatbot-input">
@@ -1860,11 +1618,11 @@
     </div>
 
     <script>
-        // Create diamond and gold elements for luxury background
+        // Create diamond and electric blue elements for luxury background
         function createLuxuryElements() {
             const background = document.getElementById('luxury-background');
             const diamondCount = 60;
-            const goldCount = 30;
+            const blueCount = 30;
             
             for (let i = 0; i < diamondCount; i++) {
                 const diamond = document.createElement('div');
@@ -1887,9 +1645,9 @@
                 background.appendChild(diamond);
             }
             
-            for (let i = 0; i < goldCount; i++) {
-                const gold = document.createElement('div');
-                gold.classList.add('gold-particle');
+            for (let i = 0; i < blueCount; i++) {
+                const blue = document.createElement('div');
+                blue.classList.add('blue-particle');
                 
                 // Random properties
                 const size = Math.random() * 6 + 3;
@@ -1897,14 +1655,89 @@
                 const delay = Math.random() * 15;
                 const duration = Math.random() * 10 + 15;
                 
-                gold.style.width = `${size}px`;
-                gold.style.height = `${size}px`;
-                gold.style.left = `${posX}%`;
-                gold.style.animationDelay = `${delay}s`;
-                gold.style.animationDuration = `${duration}s`;
+                blue.style.width = `${size}px`;
+                blue.style.height = `${size}px`;
+                blue.style.left = `${posX}%`;
+                blue.style.animationDelay = `${delay}s`;
+                blue.style.animationDuration = `${duration}s`;
                 
-                background.appendChild(gold);
+                background.appendChild(blue);
             }
+        }
+        
+        // Three.js GPU Visualization
+        function initGPUVisualization() {
+            const canvas = document.getElementById('gpu-canvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+            
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            
+            // Create a GPU-like geometry
+            const geometry = new THREE.BoxGeometry(2, 3, 0.5);
+            const material = new THREE.MeshPhongMaterial({ 
+                color: 0x00a8ff,
+                shininess: 100,
+                specular: 0x444444
+            });
+            const gpu = new THREE.Mesh(geometry, material);
+            scene.add(gpu);
+            
+            // Add details to the GPU
+            const fanGeometry = new THREE.CylinderGeometry(0.5, 0.5, 0.1, 32);
+            const fanMaterial = new THREE.MeshPhongMaterial({ color: 0x222222 });
+            
+            const fan1 = new THREE.Mesh(fanGeometry, fanMaterial);
+            fan1.position.set(-0.7, 1, 0.3);
+            gpu.add(fan1);
+            
+            const fan2 = new THREE.Mesh(fanGeometry, fanMaterial);
+            fan2.position.set(0.7, 1, 0.3);
+            gpu.add(fan2);
+            
+            const pcbGeometry = new THREE.BoxGeometry(1.8, 2.8, 0.05);
+            const pcbMaterial = new THREE.MeshPhongMaterial({ color: 0x006600 });
+            const pcb = new THREE.Mesh(pcbGeometry, pcbMaterial);
+            pcb.position.set(0, 0, -0.2);
+            gpu.add(pcb);
+            
+            // Add lights
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+            
+            const pointLight = new THREE.PointLight(0x00a8ff, 1, 100);
+            pointLight.position.set(0, 0, 5);
+            scene.add(pointLight);
+            
+            camera.position.z = 5;
+            
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                gpu.rotation.x += 0.005;
+                gpu.rotation.y += 0.01;
+                
+                // Add subtle floating motion
+                gpu.position.y = Math.sin(Date.now() * 0.001) * 0.1;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            });
         }
         
         // Header scroll effect
@@ -1984,11 +1817,11 @@
                     } else if (message.toLowerCase().includes('start') || message.toLowerCase().includes('how to begin')) {
                         response = "To get started, you can either contribute your GPU resources or use our compute power. Sign up on our platform and follow the onboarding process. Need guidance?";
                     } else if (message.toLowerCase().includes('hello') || message.toLowerCase().includes('hi')) {
-                        response = "Hello there! How can I assist you with CoreCompute today?";
+                        response = "Hello there! How can I assist you with HyperlumeAI today?";
                     } else if (message.toLowerCase().includes('demo') || message.toLowerCase().includes('mvp')) {
                         response = "You can view our MVP demo at https://riek27.github.io/CoreCompute-mvp-demo/ or click the 'View MVP Demo' button on our website.";
                     } else {
-                        response = "Thank you for your message. Our team will get back to you shortly. Is there anything specific you'd like to know about CoreCompute?";
+                        response = "Thank you for your message. Our team will get back to you shortly. Is there anything specific you'd like to know about HyperlumeAI?";
                     }
                     
                     addMessage(response);
@@ -2042,33 +1875,34 @@
             });
         });
         
-        // Initialize luxury elements
+        // Initialize luxury elements and 3D visualization
         createLuxuryElements();
+        initGPUVisualization();
         
-        // Simple 3D rotation for the GPU card
-        const gpuContainer = document.querySelector('.floating-gpu');
-        if (gpuContainer) {
-            let rotateX = 0;
-            let rotateY = 0;
+        // Add CSS for blue particles
+        const style = document.createElement('style');
+        style.textContent = `
+            .blue-particle {
+                position: absolute;
+                width: 6px;
+                height: 6px;
+                background: var(--electric-blue);
+                border-radius: 50%;
+                box-shadow: 0 0 15px 3px rgba(0, 168, 255, 0.7);
+                animation: float 15s infinite ease-in-out;
+            }
             
-            document.addEventListener('mousemove', (e) => {
-                rotateX = -(e.clientY / window.innerHeight - 0.5) * 20;
-                rotateY = (e.clientX / window.innerWidth - 0.5) * 20;
-                
-                gpuContainer.style.transform = `translate(-50%, -50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-        }
-        
-        // Parallax effect for the 3D GPU background
-        const gpuModel = document.querySelector('.gpu-3d-model');
-        if (gpuModel) {
-            document.addEventListener('mousemove', (e) => {
-                const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
-                const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
-                
-                gpuModel.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px)) rotate(var(--rotation))`;
-            });
-        }
+            .diamond {
+                position: absolute;
+                width: 3px;
+                height: 3px;
+                background: var(--diamond);
+                border-radius: 50%;
+                box-shadow: 0 0 10px 2px rgba(185, 242, 255, 0.5);
+                animation: twinkle 5s infinite;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
