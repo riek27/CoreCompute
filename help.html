@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - HyperAstraAI</title>
+    <style>
+        :root {
+            /* Color System - Update these to match your site */
+            --color-primary: #0066ff; /* Primary brand color */
+            --color-text: #000000; /* Primary text color */
+            --color-text-light: #666666; /* Secondary text color */
+            --color-background: #ffffff; /* Page background */
+            --color-background-alt: #f8f9fa; /* Alternate background */
+            --color-border: #eaeaea; /* Border color */
+            --color-footer-bg: #000000; /* Footer background */
+            --color-footer-text: #ffffff; /* Footer text */
+            
+            /* Typography - Update to match your site fonts */
+            --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            --font-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+            
+            /* Transitions */
+            --transition-base: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--color-text);
+            background-color: var(--color-background);
+        }
+
+        /* Header & Navigation Styles */
+        .site-header {
+            background-color: var(--color-background);
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: var(--color-text);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-md);
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--color-text-light);
+            font-weight: 500;
+            transition: var(--transition-base);
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--color-primary);
+        }
+
+        .nav-menu a.active {
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .help-hero {
+            background-color: var(--color-background);
+            padding: var(--spacing-xl) var(--spacing-sm);
+            text-align: center;
+        }
+
+        .help-hero h1 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .help-hero p {
+            font-size: 1.25rem;
+            color: var(--color-text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Help Content */
+        .help-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--spacing-lg) var(--spacing-sm);
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Accordion Styles */
+        .help-accordion {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .accordion-item {
+            border-top: 1px solid var(--color-border);
+        }
+
+        .accordion-header {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: var(--spacing-md) var(--spacing-sm) var(--spacing-md) 0;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text);
+            transition: var(--transition-base);
+        }
+
+        .accordion-header:hover {
+            color: var(--color-primary);
+        }
+
+        .accordion-icon {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--color-text-light);
+            transition: var(--transition-base);
+        }
+
+        .accordion-header:hover .accordion-icon {
+            color: var(--color-primary);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .accordion-content-inner {
+            padding: 0 var(--spacing-sm) var(--spacing-md) 0;
+            color: var(--color-text);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 2000px; /* Adjust based on content needs */
+        }
+
+        .accordion-item.active .accordion-icon::before {
+            content: "−";
+        }
+
+        /* Footer Styles */
+        .site-footer {
+            background-color: var(--color-footer-bg);
+            color: var(--color-footer-text);
+            padding: var(--spacing-lg) var(--spacing-sm);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--color-footer-text);
+            text-decoration: none;
+            transition: var(--transition-base);
+        }
+
+        .footer-links a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: var(--spacing-md) auto 0;
+            padding-top: var(--spacing-md);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: var(--spacing-sm);
+            }
+
+            .nav-menu {
+                margin-top: var(--spacing-sm);
+                gap: var(--spacing-sm);
+            }
+
+            .help-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .help-hero p {
+                font-size: 1.1rem;
+            }
+
+            .accordion-header {
+                font-size: 1.1rem;
+                padding: var(--spacing-sm) var(--spacing-xs) var(--spacing-sm) 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .help-hero h1 {
+                font-size: 2rem;
+            }
+
+            .help-hero {
+                padding: var(--spacing-lg) var(--spacing-sm);
+            }
+
+            .help-content {
+                padding: var(--spacing-md) var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">HyperAstraAI</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="demo.html">Demo</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="help.html" class="active">Help Center</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="help-hero">
+        <h1>Help Center</h1>
+        <p>Everything you need to get started with HyperAstraAI</p>
+    </section>
+
+    <!-- Main Help Content -->
+    <main class="help-content">
+        <div class="help-accordion">
+            <!-- Getting Started Section -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    Getting Started
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p>Welcome to HyperAstraAI! Start by creating your account to access our platform simulation. You can explore all features in demo mode before committing.</p>
+                        <p>Our platform integrates seamlessly with popular ML frameworks including TensorFlow, PyTorch, and Hugging Face. You can test compatibility and performance with your existing workflows without any setup required.</p>
+                        <p>The demo environment provides a complete simulation of our distributed computing infrastructure, allowing you to evaluate performance and compatibility risk-free.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Running Jobs & Simulations Section -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    Running Jobs & Simulations
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p>Our simulation interface allows you to configure and test distributed computing jobs without actual GPU allocation. Start by selecting your preferred framework and model type.</p>
+                        <p>Choose from available GPU tiers to match your performance requirements. The simulation accurately mirrors real distributed compute scheduling, giving you realistic performance expectations.</p>
+                        <p>Monitor job progress in real-time and adjust parameters as needed. All simulations use credit-based allocation, so you can experiment without financial commitment.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billing & Credits Section -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    Billing & Credits
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p>HyperAstraAI uses a credit-based system representing GPU compute usage. In simulation mode, credits help you estimate real-world costs without actual charges.</p>
+                        <p>Each credit corresponds to specific compute resources and time allocations. Monitor your credit usage through the dashboard to optimize your resource allocation.</p>
+                        <p>Future production versions will include detailed spending analytics and cost prediction tools to help you budget effectively for large-scale ML training workloads.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Becoming a Provider Section -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    Becoming a Provider
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p>GPU owners and data centers can connect idle resources to the HyperAstra network. Monetize your underutilized hardware while supporting the AI research community.</p>
+                        <p>Future onboarding will be available via API or lightweight node agent installation. The process is designed for minimal operational overhead with maximum security.</p>
+                        <p>Providers receive competitive compensation based on GPU tier, utilization, and market demand. Join our waiting list to be notified when provider registration opens.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account & Access Section -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    Account & Access
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p>Your HyperAstraAI account provides access to all platform features. Production accounts will include comprehensive usage analytics, credit management, and team collaboration tools.</p>
+                        <p>Secure authentication ensures your models and data remain protected. Future releases will include API access for programmatic platform interaction.</p>
+                        <p>Account settings allow you to manage notifications, billing preferences, and access permissions as your usage scales.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support & Contact Section -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    Support & Contact
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <p>For technical support and platform assistance, contact our team at <strong>support@hyperastra.ai</strong>.</p>
+                        <p>Our global support team typically responds within 24 hours. For urgent issues during simulation or testing, please include your session ID and detailed description of the problem.</p>
+                        <p>We welcome feedback and suggestions to improve the HyperAstraAI platform. Let us know how we can better serve your distributed computing needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div>
+                <h3>HyperAstraAI</h3>
+                <p>Next-generation AI infrastructure</p>
+            </div>
+            <div>
+                <h4>Platform</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Features</a></li>
+                    <li><a href="demo.html">Demo</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="help.html">Help Center</a></li>
+                    <li><a href="docs.html">Documentation</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 HyperAstraAI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const item = this.parentElement;
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all items
+                    document.querySelectorAll('.accordion-item').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    
+                    // Open clicked item if it wasn't active
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+
+            // Open first item by default for better UX
+            if (accordionHeaders.length > 0) {
+                accordionHeaders[0].parentElement.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
