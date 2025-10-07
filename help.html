@@ -4,455 +4,648 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Help Center - HyperAstraAI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            /* Color System - Update these to match your site */
-            --color-primary: #0066ff; /* Primary brand color */
-            --color-text: #000000; /* Primary text color */
-            --color-text-light: #666666; /* Secondary text color */
-            --color-background: #ffffff; /* Page background */
-            --color-background-alt: #f8f9fa; /* Alternate background */
-            --color-border: #eaeaea; /* Border color */
-            --color-footer-bg: #000000; /* Footer background */
-            --color-footer-text: #ffffff; /* Footer text */
-            
-            /* Typography - Update to match your site fonts */
-            --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            --font-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            
-            /* Spacing */
-            --spacing-xs: 0.5rem;
-            --spacing-sm: 1rem;
-            --spacing-md: 2rem;
-            --spacing-lg: 4rem;
-            --spacing-xl: 6rem;
-            
-            /* Transitions */
-            --transition-base: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-primary);
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: var(--color-text);
-            background-color: var(--color-background);
-        }
-
-        /* Header & Navigation Styles */
-        .site-header {
-            background-color: var(--color-background);
-            border-bottom: 1px solid var(--color-border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--spacing-sm);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
-
-        .logo {
-            font-family: var(--font-heading);
-            font-weight: bold;
-            font-size: 1.5rem;
-            text-decoration: none;
-            color: var(--color-text);
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: var(--spacing-md);
-        }
-
-        .nav-menu a {
-            text-decoration: none;
-            color: var(--color-text-light);
-            font-weight: 500;
-            transition: var(--transition-base);
-        }
-
-        .nav-menu a:hover,
-        .nav-menu a.active {
-            color: var(--color-primary);
-        }
-
-        .nav-menu a.active {
-            font-weight: 600;
-        }
-
-        /* Hero Section */
+        /* Help Page Specific Styles */
         .help-hero {
-            background-color: var(--color-background);
-            padding: var(--spacing-xl) var(--spacing-sm);
+            padding: 120px 0 60px;
             text-align: center;
+            background-color: var(--card-bg);
+            position: relative;
+            overflow: hidden;
         }
 
         .help-hero h1 {
-            font-family: var(--font-heading);
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: var(--spacing-sm);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease forwards;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .help-hero p {
-            font-size: 1.25rem;
-            color: var(--color-text-light);
+            font-size: 1.2rem;
+            color: var(--text-muted);
             max-width: 600px;
             margin: 0 auto;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease 0.2s forwards;
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .help-search {
+            max-width: 600px;
+            margin: 40px auto 0;
+            position: relative;
         }
 
-        /* Main Help Content */
-        .help-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: var(--spacing-lg) var(--spacing-sm);
-            border-top: 1px solid var(--color-border);
-        }
-
-        /* Accordion Styles */
-        .help-accordion {
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .accordion-item {
-            border-top: 1px solid var(--color-border);
-        }
-
-        .accordion-header {
+        .help-search input {
             width: 100%;
+            padding: 16px 50px 16px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .help-search input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(100, 150, 255, 0.1);
+        }
+
+        .help-search button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
             background: none;
             border: none;
-            padding: var(--spacing-md) var(--spacing-sm) var(--spacing-md) 0;
-            text-align: left;
+            color: var(--text-muted);
             cursor: pointer;
+            padding: 8px;
+        }
+
+        .help-categories {
+            padding: 80px 0;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .category-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            font-family: var(--font-heading);
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--color-text);
-            transition: var(--transition-base);
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
         }
 
-        .accordion-header:hover {
-            color: var(--color-primary);
+        .category-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
         }
 
-        .accordion-icon {
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: var(--color-text-light);
-            transition: var(--transition-base);
+        .category-card p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
         }
 
-        .accordion-header:hover .accordion-icon {
-            color: var(--color-primary);
+        .faq-section {
+            padding: 80px 0;
+            background-color: var(--card-bg);
         }
 
-        .accordion-content {
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px 30px;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background-color: rgba(100, 150, 255, 0.05);
+        }
+
+        .faq-question h4 {
+            margin: 0;
+            flex: 1;
+            font-size: 1.1rem;
+        }
+
+        .faq-toggle {
+            width: 24px;
+            height: 24px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-toggle::before,
+        .faq-toggle::after {
+            content: '';
+            position: absolute;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .faq-toggle::before {
+            width: 2px;
+            height: 12px;
+            top: 6px;
+            left: 11px;
+        }
+
+        .faq-toggle::after {
+            width: 12px;
+            height: 2px;
+            top: 11px;
+            left: 6px;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 30px;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        .accordion-content-inner {
-            padding: 0 var(--spacing-sm) var(--spacing-md) 0;
-            color: var(--color-text);
+        .faq-item.active .faq-answer {
+            padding: 0 30px 20px;
+            max-height: 500px;
         }
 
-        .accordion-item.active .accordion-content {
-            max-height: 2000px; /* Adjust based on content needs */
+        .contact-section {
+            padding: 80px 0;
         }
 
-        .accordion-item.active .accordion-icon::before {
-            content: "−";
-        }
-
-        /* Footer Styles */
-        .site-footer {
-            background-color: var(--color-footer-bg);
-            color: var(--color-footer-text);
-            padding: var(--spacing-lg) var(--spacing-sm);
-        }
-
-        .footer-content {
-            max-width: 1200px;
+        .contact-container {
+            max-width: 600px;
             margin: 0 auto;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(100, 150, 255, 0.1);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn--full-width {
+            width: 100%;
+        }
+
+        .contact-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--spacing-md);
+            gap: 30px;
+            margin-top: 50px;
         }
 
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links a {
-            color: var(--color-footer-text);
-            text-decoration: none;
-            transition: var(--transition-base);
-        }
-
-        .footer-links a:hover {
-            opacity: 0.8;
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: var(--spacing-md) auto 0;
-            padding-top: var(--spacing-md);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .contact-method {
             text-align: center;
-            color: rgba(255, 255, 255, 0.7);
+            padding: 30px 20px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5rem;
+        }
+
+        .contact-method h4 {
+            margin-bottom: 10px;
+        }
+
+        .contact-method p {
+            color: var(--text-muted);
+            margin: 0;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                height: auto;
-                padding: var(--spacing-sm);
-            }
-
-            .nav-menu {
-                margin-top: var(--spacing-sm);
-                gap: var(--spacing-sm);
+            .help-hero {
+                padding: 100px 0 40px;
             }
 
             .help-hero h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
 
-            .help-hero p {
-                font-size: 1.1rem;
+            .categories-grid {
+                grid-template-columns: 1fr;
             }
 
-            .accordion-header {
-                font-size: 1.1rem;
-                padding: var(--spacing-sm) var(--spacing-xs) var(--spacing-sm) 0;
+            .contact-container {
+                padding: 30px 20px;
+                margin: 0 20px;
+            }
+
+            .faq-question {
+                padding: 15px 20px;
+            }
+
+            .faq-answer {
+                padding: 0 20px;
+            }
+
+            .faq-item.active .faq-answer {
+                padding: 0 20px 15px;
             }
         }
 
         @media (max-width: 480px) {
             .help-hero h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
-            .help-hero {
-                padding: var(--spacing-lg) var(--spacing-sm);
-            }
-
-            .help-content {
-                padding: var(--spacing-md) var(--spacing-sm);
+            .contact-info {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header class="site-header">
-        <nav class="nav-container">
-            <a href="index.html" class="logo">HyperAstraAI</a>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="demo.html">Demo</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="help.html" class="active">Help Center</a></li>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__logo">
+                <h2>HyperAstraAI</h2>
+            </div>
+            <ul class="nav__menu" id="nav-menu">
+                <li class="nav__item">
+                    <a href="index.html" class="nav__link">Home</a>
+                </li>
+                <li class="nav__item">
+                    <a href="about.html" class="nav__link">About</a>
+                </li>
+                <li class="nav__item">
+                    <a href="features.html" class="nav__link">Features</a>
+                </li>
+                <li class="nav__item">
+                    <a href="demo.html" class="nav__link">Demo</a>
+                </li>
+                <li class="nav__item">
+                    <a href="pricing.html" class="nav__link">Pricing</a>
+                </li>
+                <li class="nav__item">
+                    <a href="help.html" class="nav__link active">Help</a>
+                </li>
+                <li class="nav__item">
+                    <a href="waitlist.html" class="nav__link nav__cta">Join Waitlist</a>
+                </li>
             </ul>
+            <div class="nav__toggle" id="nav-toggle">
+                <span class="nav__toggle-line"></span>
+                <span class="nav__toggle-line"></span>
+                <span class="nav__toggle-line"></span>
+            </div>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="help-hero">
-        <h1>Help Center</h1>
-        <p>Everything you need to get started with HyperAstraAI</p>
-    </section>
+    <main>
+        <section class="help-hero">
+            <div class="container">
+                <h1>Help Center</h1>
+                <p>Find answers to common questions and get support for HyperAstraAI</p>
+                <div class="help-search">
+                    <input type="text" placeholder="Search for help articles..." id="help-search">
+                    <button type="button">🔍</button>
+                </div>
+            </div>
+        </section>
 
-    <!-- Main Help Content -->
-    <main class="help-content">
-        <div class="help-accordion">
-            <!-- Getting Started Section -->
-            <div class="accordion-item">
-                <button class="accordion-header">
-                    Getting Started
-                    <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <div class="accordion-content-inner">
-                        <p>Welcome to HyperAstraAI! Start by creating your account to access our platform simulation. You can explore all features in demo mode before committing.</p>
-                        <p>Our platform integrates seamlessly with popular ML frameworks including TensorFlow, PyTorch, and Hugging Face. You can test compatibility and performance with your existing workflows without any setup required.</p>
-                        <p>The demo environment provides a complete simulation of our distributed computing infrastructure, allowing you to evaluate performance and compatibility risk-free.</p>
+        <section class="help-categories">
+            <div class="container">
+                <h2 class="section__title">How can we help you?</h2>
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <div class="category-icon">🚀</div>
+                        <h3>Getting Started</h3>
+                        <p>Learn how to set up your account and run your first AI training job</p>
+                        <a href="#" class="btn btn--secondary">View Guides</a>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">💻</div>
+                        <h3>Technical Documentation</h3>
+                        <p>API references, SDK documentation, and technical specifications</p>
+                        <a href="#" class="btn btn--secondary">View Docs</a>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">💰</div>
+                        <h3>Billing & Pricing</h3>
+                        <p>Understand our pricing model, credits system, and billing questions</p>
+                        <a href="#" class="btn btn--secondary">Learn More</a>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🔒</div>
+                        <h3>Security & Privacy</h3>
+                        <p>Learn about our security measures and data protection policies</p>
+                        <a href="#" class="btn btn--secondary">Security Info</a>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Running Jobs & Simulations Section -->
-            <div class="accordion-item">
-                <button class="accordion-header">
-                    Running Jobs & Simulations
-                    <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <div class="accordion-content-inner">
-                        <p>Our simulation interface allows you to configure and test distributed computing jobs without actual GPU allocation. Start by selecting your preferred framework and model type.</p>
-                        <p>Choose from available GPU tiers to match your performance requirements. The simulation accurately mirrors real distributed compute scheduling, giving you realistic performance expectations.</p>
-                        <p>Monitor job progress in real-time and adjust parameters as needed. All simulations use credit-based allocation, so you can experiment without financial commitment.</p>
+        <section class="faq-section">
+            <div class="container">
+                <h2 class="section__title">Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>How does HyperAstraAI compare to traditional cloud providers?</h4>
+                            <div class="faq-toggle"></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>HyperAstraAI connects you to a global network of idle GPUs, offering up to 70% cost savings compared to traditional cloud providers. Our decentralized approach eliminates the overhead of maintaining large data centers, passing the savings directly to you while providing comparable or better performance for AI workloads.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>What AI frameworks and models are supported?</h4>
+                            <div class="faq-toggle"></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We support all major AI frameworks including TensorFlow, PyTorch, and Hugging Face Transformers. Our platform is compatible with most popular model architectures for text generation, image classification, object detection, reinforcement learning, and custom models. Check our documentation for the complete list of supported frameworks and version compatibility.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>How is data security and privacy handled?</h4>
+                            <div class="faq-toggle"></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Security is our top priority. All data transfers are encrypted end-to-end, and we implement strict isolation between jobs. You maintain full ownership of your models and data. We never store your training data permanently, and all temporary data is automatically wiped after job completion. For enterprise customers, we offer additional security features and compliance certifications.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>How does the credits system work?</h4>
+                            <div class="faq-toggle"></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Credits are our platform's currency for accessing GPU resources. One credit typically represents one hour of computation on an entry-level GPU. Higher-tier GPUs consume credits at a faster rate. You can purchase credit packages that never expire, and we offer volume discounts for larger purchases. Our pricing calculator helps estimate credit requirements for your specific workloads.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>What happens if a GPU node fails during my job?</h4>
+                            <div class="faq-toggle"></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our platform automatically handles node failures by checkpointing your training progress and migrating to a healthy node. You don't lose progress or pay for incomplete work. For critical workloads, we recommend enabling automatic checkpointing at regular intervals to minimize potential recomputation.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>When will HyperAstraAI be available to the public?</h4>
+                            <div class="faq-toggle"></div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We're currently in private beta with select partners and early access users. Public availability is planned for Q2 2025. Join our waitlist to get early access and be notified when we open to the public. Enterprise customers can contact us directly for dedicated deployment options.</p>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Billing & Credits Section -->
-            <div class="accordion-item">
-                <button class="accordion-header">
-                    Billing & Credits
-                    <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <div class="accordion-content-inner">
-                        <p>HyperAstraAI uses a credit-based system representing GPU compute usage. In simulation mode, credits help you estimate real-world costs without actual charges.</p>
-                        <p>Each credit corresponds to specific compute resources and time allocations. Monitor your credit usage through the dashboard to optimize your resource allocation.</p>
-                        <p>Future production versions will include detailed spending analytics and cost prediction tools to help you budget effectively for large-scale ML training workloads.</p>
+        <section class="contact-section">
+            <div class="container">
+                <h2 class="section__title">Still need help?</h2>
+                <p class="section__subtitle">Our support team is here to assist you</p>
+                
+                <div class="contact-container">
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-group">
+                            <label for="contact-name">Full Name</label>
+                            <input type="text" id="contact-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email Address</label>
+                            <input type="email" id="contact-email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-subject">Subject</label>
+                            <select id="contact-subject" name="subject" required>
+                                <option value="">Select a topic</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="billing">Billing Question</option>
+                                <option value="feature">Feature Request</option>
+                                <option value="partnership">Partnership Inquiry</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" name="message" placeholder="Describe your issue or question..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-method">
+                        <div class="contact-icon">📧</div>
+                        <h4>Email Support</h4>
+                        <p>support@hyperastraai.com</p>
+                        <p>Typically replies within 4 hours</p>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">💬</div>
+                        <h4>Community Forum</h4>
+                        <p>Ask the community</p>
+                        <p>Get help from other users</p>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">📚</div>
+                        <h4>Documentation</h4>
+                        <p>Technical guides</p>
+                        <p>API references & tutorials</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Becoming a Provider Section -->
-            <div class="accordion-item">
-                <button class="accordion-header">
-                    Becoming a Provider
-                    <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <div class="accordion-content-inner">
-                        <p>GPU owners and data centers can connect idle resources to the HyperAstra network. Monetize your underutilized hardware while supporting the AI research community.</p>
-                        <p>Future onboarding will be available via API or lightweight node agent installation. The process is designed for minimal operational overhead with maximum security.</p>
-                        <p>Providers receive competitive compensation based on GPU tier, utilization, and market demand. Join our waiting list to be notified when provider registration opens.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Account & Access Section -->
-            <div class="accordion-item">
-                <button class="accordion-header">
-                    Account & Access
-                    <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <div class="accordion-content-inner">
-                        <p>Your HyperAstraAI account provides access to all platform features. Production accounts will include comprehensive usage analytics, credit management, and team collaboration tools.</p>
-                        <p>Secure authentication ensures your models and data remain protected. Future releases will include API access for programmatic platform interaction.</p>
-                        <p>Account settings allow you to manage notifications, billing preferences, and access permissions as your usage scales.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Support & Contact Section -->
-            <div class="accordion-item">
-                <button class="accordion-header">
-                    Support & Contact
-                    <span class="accordion-icon">+</span>
-                </button>
-                <div class="accordion-content">
-                    <div class="accordion-content-inner">
-                        <p>For technical support and platform assistance, contact our team at <strong>support@hyperastra.ai</strong>.</p>
-                        <p>Our global support team typically responds within 24 hours. For urgent issues during simulation or testing, please include your session ID and detailed description of the problem.</p>
-                        <p>We welcome feedback and suggestions to improve the HyperAstraAI platform. Let us know how we can better serve your distributed computing needs.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div>
-                <h3>HyperAstraAI</h3>
-                <p>Next-generation AI infrastructure</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <h3>HyperAstraAI</h3>
+                    <p>Decentralized AI compute platform connecting global GPU resources with AI workloads.</p>
+                </div>
+                <div class="footer__links">
+                    <div class="footer__column">
+                        <h4>Platform</h4>
+                        <a href="features.html">Features</a>
+                        <a href="pricing.html">Pricing</a>
+                        <a href="demo.html">Demo</a>
+                    </div>
+                    <div class="footer__column">
+                        <h4>Company</h4>
+                        <a href="about.html">About</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Careers</a>
+                    </div>
+                    <div class="footer__column">
+                        <h4>Support</h4>
+                        <a href="help.html">Help Center</a>
+                        <a href="#">Documentation</a>
+                        <a href="#">Contact</a>
+                    </div>
+                </div>
             </div>
-            <div>
-                <h4>Platform</h4>
-                <ul class="footer-links">
-                    <li><a href="index.html">Features</a></li>
-                    <li><a href="demo.html">Demo</a></li>
-                    <li><a href="pricing.html">Pricing</a></li>
-                </ul>
+            <div class="footer__bottom">
+                <p>&copy; 2025 HyperAstraAI. All rights reserved.</p>
             </div>
-            <div>
-                <h4>Resources</h4>
-                <ul class="footer-links">
-                    <li><a href="help.html">Help Center</a></li>
-                    <li><a href="docs.html">Documentation</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Company</h4>
-                <ul class="footer-links">
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="careers.html">Careers</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 HyperAstraAI. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Accordion functionality
+        // FAQ Toggle Functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            const faqItems = document.querySelectorAll('.faq-item');
             
-            accordionHeaders.forEach(header => {
-                header.addEventListener('click', function() {
-                    const item = this.parentElement;
-                    const isActive = item.classList.contains('active');
-                    
-                    // Close all items
-                    document.querySelectorAll('.accordion-item').forEach(el => {
-                        el.classList.remove('active');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
                     });
                     
-                    // Open clicked item if it wasn't active
-                    if (!isActive) {
-                        item.classList.add('active');
-                    }
+                    // Toggle current item
+                    item.classList.toggle('active');
                 });
             });
 
-            // Open first item by default for better UX
-            if (accordionHeaders.length > 0) {
-                accordionHeaders[0].parentElement.classList.add('active');
+            // Search functionality
+            const searchInput = document.getElementById('help-search');
+            const searchButton = document.querySelector('.help-search button');
+            
+            function performSearch() {
+                const query = searchInput.value.toLowerCase().trim();
+                if (query) {
+                    // In a real implementation, this would search through content
+                    // For demo purposes, we'll just highlight matching FAQ items
+                    faqItems.forEach(item => {
+                        const question = item.querySelector('h4').textContent.toLowerCase();
+                        const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+                        
+                        if (question.includes(query) || answer.includes(query)) {
+                            item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            item.style.backgroundColor = 'rgba(100, 150, 255, 0.1)';
+                            setTimeout(() => {
+                                item.style.backgroundColor = '';
+                            }, 2000);
+                        }
+                    });
+                }
+            }
+            
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+
+            // Contact form submission
+            const contactForm = document.getElementById('contact-form');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                
+                // Simulate form submission
+                setTimeout(() => {
+                    alert('Thank you for your message! Our support team will get back to you within 24 hours.');
+                    contactForm.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 1500);
+            });
+
+            // Mobile menu toggle
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    navToggle.classList.toggle('active');
+                });
             }
         });
     </script>
