@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - HyperAstraAI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Careers Page Specific Styles */
+        .career-hero {
+            padding: 120px 0 60px;
+            text-align: center;
+            background-color: var(--card-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .career-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .career-hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .career-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 50px auto 0;
+            max-width: 800px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .culture-section {
+            padding: 80px 0;
+        }
+
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .culture-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .culture-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .culture-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+
+        .culture-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .culture-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .benefits-section {
+            padding: 80px 0;
+            background-color: var(--card-bg);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 25px;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .benefit-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+
+        .benefit-content h4 {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .benefit-content p {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .positions-section {
+            padding: 80px 0;
+        }
+
+        .positions-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .positions-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .position-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .position-card:hover {
+            transform: translateY(-3px);
+            border-left-color: var(--primary-color);
+        }
+
+        .position-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .position-title {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .position-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .position-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            background-color: rgba(100, 150, 255, 0.1);
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .position-description {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .process-section {
+            padding: 80px 0;
+            background-color: var(--card-bg);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            position: relative;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .process-step h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .process-step p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .application-section {
+            padding: 80px 0;
+        }
+
+        .application-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .application-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .application-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .application-form input,
+        .application-form select,
+        .application-form textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .application-form input:focus,
+        .application-form select:focus,
+        .application-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(100, 150, 255, 0.1);
+        }
+
+        .application-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .file-upload {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary-color);
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+
+        .upload-text {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .upload-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .btn--full-width {
+            width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .career-hero {
+                padding: 100px 0 40px;
+            }
+
+            .career-hero h1 {
+                font-size: 2rem;
+            }
+
+            .position-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .application-container {
+                padding: 30px 20px;
+                margin: 0 20px;
+            }
+
+            .culture-grid,
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .positions-filter {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .career-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .career-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-card {
+                padding: 20px 15px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__logo">
+                <h2>HyperAstraAI</h2>
+            </div>
+            <ul class="nav__menu" id="nav-menu">
+                <li class="nav__item">
+                    <a href="index.html" class="nav__link">Home</a>
+                </li>
+                <li class="nav__item">
+                    <a href="about.html" class="nav__link">About</a>
+                </li>
+                <li class="nav__item">
+                    <a href="features.html" class="nav__link">Features</a>
+                </li>
+                <li class="nav__item">
+                    <a href="demo.html" class="nav__link">Demo</a>
+                </li>
+                <li class="nav__item">
+                    <a href="pricing.html" class="nav__link">Pricing</a>
+                </li>
+                <li class="nav__item">
+                    <a href="waitlist.html" class="nav__link nav__cta">Join Waitlist</a>
+                </li>
+            </ul>
+            <div class="nav__toggle" id="nav-toggle">
+                <span class="nav__toggle-line"></span>
+                <span class="nav__toggle-line"></span>
+                <span class="nav__toggle-line"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="career-hero">
+            <div class="container">
+                <h1>Build the Future of AI Compute</h1>
+                <p>Join our mission to democratize AI infrastructure and power the next generation of artificial intelligence</p>
+                
+                <div class="career-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Countries</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Team Members</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">$8.5M</div>
+                        <div class="stat-label">Funding Raised</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">89%</div>
+                        <div class="stat-label">Employee Retention</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="culture-section">
+            <div class="container">
+                <h2 class="section__title">Our Culture</h2>
+                <p class="section__subtitle">We're building more than a company - we're building a movement</p>
+                
+                <div class="culture-grid">
+                    <div class="culture-card">
+                        <div class="culture-icon">🚀</div>
+                        <h3>Mission-Driven</h3>
+                        <p>Every team member is aligned with our core mission to democratize AI compute and make it accessible to everyone.</p>
+                    </div>
+                    <div class="culture-card">
+                        <div class="culture-icon">🌍</div>
+                        <h3>Global & Remote-First</h3>
+                        <p>We hire the best talent regardless of location. Our team spans 15+ countries with flexible work arrangements.</p>
+                    </div>
+                    <div class="culture-card">
+                        <div class="culture-icon">💡</div>
+                        <h3>Innovation Focused</h3>
+                        <p>We encourage experimentation and provide resources for team members to explore new ideas and technologies.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="benefits-section">
+            <div class="container">
+                <h2 class="section__title">Perks & Benefits</h2>
+                <p class="section__subtitle">We invest in our team's growth, health, and happiness</p>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">💰</div>
+                        <div class="benefit-content">
+                            <h4>Competitive Compensation</h4>
+                            <p>Industry-leading salaries and equity packages for all team members</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🏥</div>
+                        <div class="benefit-content">
+                            <h4>Health & Wellness</h4>
+                            <p>Comprehensive medical, dental, and vision insurance for you and your family</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🎓</div>
+                        <div class="benefit-content">
+                            <h4>Learning Budget</h4>
+                            <p>$5,000 annual learning budget for courses, conferences, and books</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🏖️</div>
+                        <div class="benefit-content">
+                            <h4>Unlimited PTO</h4>
+                            <p>Take the time you need to recharge with our flexible vacation policy</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">💻</div>
+                        <div class="benefit-content">
+                            <h4>Tech Setup</h4>
+                            <p>Latest MacBook Pro and $2,000 home office setup budget</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">👶</div>
+                        <div class="benefit-content">
+                            <h4>Parental Leave</h4>
+                            <p>16 weeks fully paid parental leave for all new parents</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🌴</div>
+                        <div class="benefit-content">
+                            <h4>Team Retreats</h4>
+                            <p>Annual company-wide retreats in exciting locations around the world</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">📈</div>
+                        <div class="benefit-content">
+                            <h4>Career Growth</h4>
+                            <p>Clear promotion paths and mentorship from industry leaders</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="positions-section">
+            <div class="container">
+                <h2 class="section__title">Open Positions</h2>
+                <p class="section__subtitle">Help us build the future of decentralized AI compute</p>
+                
+                <div class="positions-filter">
+                    <button class="filter-btn active" data-filter="all">All Positions</button>
+                    <button class="filter-btn" data-filter="engineering">Engineering</button>
+                    <button class="filter-btn" data-filter="research">Research</button>
+                    <button class="filter-btn" data-filter="product">Product</button>
+                    <button class="filter-btn" data-filter="business">Business</button>
+                </div>
+                
+                <div class="positions-grid">
+                    <div class="position-card" data-category="engineering">
+                        <div class="position-header">
+                            <div>
+                                <h3 class="position-title">Senior Backend Engineer</h3>
+                                <div class="position-meta">
+                                    <div class="meta-item">📍 Remote</div>
+                                    <div class="meta-item">💼 Full-time</div>
+                                    <div class="meta-item">🎯 Senior</div>
+                                </div>
+                            </div>
+                            <div class="position-tags">
+                                <span class="tag">Go</span>
+                                <span class="tag">Kubernetes</span>
+                                <span class="tag">Distributed Systems</span>
+                            </div>
+                        </div>
+                        <p class="position-description">Build and scale our distributed computing platform that connects thousands of GPUs worldwide. Work on challenging problems in resource allocation, scheduling, and fault tolerance.</p>
+                        <a href="#apply" class="btn btn--primary">Apply Now</a>
+                    </div>
+                    
+                    <div class="position-card" data-category="research">
+                        <div class="position-header">
+                            <div>
+                                <h3 class="position-title">AI Research Scientist</h3>
+                                <div class="position-meta">
+                                    <div class="meta-item">📍 Remote</div>
+                                    <div class="meta-item">💼 Full-time</div>
+                                    <div class="meta-item">🎯 Senior</div>
+                                </div>
+                            </div>
+                            <div class="position-tags">
+                                <span class="tag">ML Research</span>
+                                <span class="tag">PyTorch</span>
+                                <span class="tag">Distributed Training</span>
+                            </div>
+                        </div>
+                        <p class="position-description">Research and develop novel algorithms for distributed model training and inference. Publish papers, contribute to open source, and push the boundaries of what's possible in decentralized AI.</p>
+                        <a href="#apply" class="btn btn--primary">Apply Now</a>
+                    </div>
+                    
+                    <div class="position-card" data-category="product">
+                        <div class="position-header">
+                            <div>
+                                <h3 class="position-title">Product Manager</h3>
+                                <div class="position-meta">
+                                    <div class="meta-item">📍 San Francisco / Remote</div>
+                                    <div class="meta-item">💼 Full-time</div>
+                                    <div class="meta-item">🎯 Mid-level</div>
+                                </div>
+                            </div>
+                            <div class="position-tags">
+                                <span class="tag">Product Strategy</span>
+                                <span class="tag">AI/ML</span>
+                                <span class="tag">User Research</span>
+                            </div>
+                        </div>
+                        <p class="position-description">Define and execute the product roadmap for our decentralized AI platform. Work closely with engineering, research, and customers to build products that developers love.</p>
+                        <a href="#apply" class="btn btn--primary">Apply Now</a>
+                    </div>
+                    
+                    <div class="position-card" data-category="engineering">
+                        <div class="position-header">
+                            <div>
+                                <h3 class="position-title">DevOps Engineer</h3>
+                                <div class="position-meta">
+                                    <div class="meta-item">📍 Remote</div>
+                                    <div class="meta-item">💼 Full-time</div>
+                                    <div class="meta-item">🎯 Mid-level</div>
+                                </div>
+                            </div>
+                            <div class="position-tags">
+                                <span class="tag">AWS</span>
+                                <span class="tag">Terraform</span>
+                                <span class="tag">CI/CD</span>
+                            </div>
+                        </div>
+                        <p class="position-description">Build and maintain our global infrastructure that powers thousands of AI training jobs daily. Ensure high availability, security, and performance across our distributed network.</p>
+                        <a href="#apply" class="btn btn--primary">Apply Now</a>
+                    </div>
+                    
+                    <div class="position-card" data-category="business">
+                        <div class="position-header">
+                            <div>
+                                <h3 class="position-title">Business Development Lead</h3>
+                                <div class="position-meta">
+                                    <div class="meta-item">📍 San Francisco</div>
+                                    <div class="meta-item">💼 Full-time</div>
+                                    <div class="meta-item">🎯 Senior</div>
+                                </div>
+                            </div>
+                            <div class="position-tags">
+                                <span class="tag">Partnerships</span>
+                                <span class="tag">Enterprise Sales</span>
+                                <span class="tag">AI Ecosystem</span>
+                            </div>
+                        </div>
+                        <p class="position-description">Forge strategic partnerships with AI companies, cloud providers, and research institutions. Drive adoption of our platform and expand our global network of GPU providers.</p>
+                        <a href="#apply" class="btn btn--primary">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="process-section">
+            <div class="container">
+                <h2 class="section__title">Our Hiring Process</h2>
+                <p class="section__subtitle">We've designed a transparent and respectful process for all candidates</p>
+                
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h3>Initial Screening</h3>
+                        <p>30-minute call with our recruiting team to discuss your background and interests</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h3>Technical Interview</h3>
+                        <p>60-90 minute session with team members focusing on role-specific skills</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h3>Team Interviews</h3>
+                        <p>Meet 3-4 team members to assess cultural fit and collaboration skills</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h3>Founder Chat</h3>
+                        <p>Conversation with our founders about vision, values, and mutual expectations</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="application-section" id="apply">
+            <div class="container">
+                <h2 class="section__title">Apply Now</h2>
+                <p class="section__subtitle">Ready to join our mission? We'd love to hear from you.</p>
+                
+                <div class="application-container">
+                    <form class="application-form" id="application-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="first-name">First Name *</label>
+                                <input type="text" id="first-name" name="first-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name *</label>
+                                <input type="text" id="last-name" name="last-name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="position">Position Applying For *</label>
+                            <select id="position" name="position" required>
+                                <option value="">Select a position</option>
+                                <option value="senior-backend-engineer">Senior Backend Engineer</option>
+                                <option value="ai-research-scientist">AI Research Scientist</option>
+                                <option value="product-manager">Product Manager</option>
+                                <option value="devops-engineer">DevOps Engineer</option>
+                                <option value="business-development-lead">Business Development Lead</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location">Location *</label>
+                            <input type="text" id="location" name="location" placeholder="City, Country" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cover-letter">Cover Letter *</label>
+                            <textarea id="cover-letter" name="cover-letter" placeholder="Tell us why you're interested in joining HyperAstraAI and what you'd bring to the role..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Resume / CV *</label>
+                            <div class="file-upload" id="resume-upload">
+                                <div class="upload-icon">📄</div>
+                                <div class="upload-text">Click to upload your resume</div>
+                                <div class="upload-hint">PDF, DOC, DOCX (Max 5MB)</div>
+                                <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Portfolio / GitHub (Optional)</label>
+                            <input type="url" id="portfolio" name="portfolio" placeholder="https://github.com/yourusername">
+                        </div>
+                        
+                        <button type="submit" class="btn btn--primary btn--full-width" id="application-submit">
+                            Submit Application
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <h3>HyperAstraAI</h3>
+                    <p>Decentralized AI compute platform connecting global GPU resources with AI workloads.</p>
+                </div>
+                <div class="footer__links">
+                    <div class="footer__column">
+                        <h4>Platform</h4>
+                        <a href="features.html">Features</a>
+                        <a href="pricing.html">Pricing</a>
+                        <a href="demo.html">Demo</a>
+                    </div>
+                    <div class="footer__column">
+                        <h4>Company</h4>
+                        <a href="about.html">About</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="career.html">Careers</a>
+                    </div>
+                    <div class="footer__column">
+                        <h4>Support</h4>
+                        <a href="help.html">Help Center</a>
+                        <a href="doc.html">Documentation</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 HyperAstraAI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Position filtering
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const positionCards = document.querySelectorAll('.position-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Show/hide position cards based on filter
+                    positionCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // File upload functionality
+            const resumeUpload = document.getElementById('resume-upload');
+            const resumeInput = document.getElementById('resume');
+            
+            resumeUpload.addEventListener('click', function() {
+                resumeInput.click();
+            });
+            
+            resumeInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    const fileName = this.files[0].name;
+                    resumeUpload.querySelector('.upload-text').textContent = fileName;
+                    resumeUpload.style.borderColor = 'var(--primary-color)';
+                    resumeUpload.style.backgroundColor = 'rgba(100, 150, 255, 0.05)';
+                }
+            });
+
+            // Application form submission
+            const applicationForm = document.getElementById('application-form');
+            const applicationSubmit = document.getElementById('application-submit');
+            
+            applicationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                const originalText = applicationSubmit.textContent;
+                applicationSubmit.textContent = 'Submitting...';
+                applicationSubmit.disabled = true;
+                
+                // Simulate form submission
+                setTimeout(() => {
+                    // Show success message
+                    const successMessage = document.createElement('div');
+                    successMessage.style.cssText = `
+                        background: linear-gradient(135deg, #00ff00, #00cc00);
+                        color: white;
+                        padding: 20px;
+                        border-radius: var(--border-radius);
+                        text-align: center;
+                        margin-top: 20px;
+                        animation: fadeIn 0.5s ease;
+                    `;
+                    successMessage.innerHTML = `
+                        <h3>Application Submitted!</h3>
+                        <p>Thank you for your interest in HyperAstraAI. Our team will review your application and get back to you within 5 business days.</p>
+                    `;
+                    
+                    applicationForm.parentNode.insertBefore(successMessage, applicationForm.nextSibling);
+                    applicationForm.style.display = 'none';
+                    
+                    // Add CSS for animation
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        @keyframes fadeIn {
+                            from { opacity: 0; transform: translateY(20px); }
+                            to { opacity: 1; transform: translateY(0); }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }, 2000);
+            });
+
+            // Mobile menu toggle
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    navToggle.classList.toggle('active');
+                });
+            }
+
+            // Add hover effects to interactive elements
+            const interactiveElements = document.querySelectorAll('.btn, .filter-btn, .form-group input, .form-group select, .form-group textarea');
+            
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.transition = 'transform 0.2s ease';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Smooth scrolling for apply buttons
+            const applyButtons = document.querySelectorAll('.position-card .btn');
+            
+            applyButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get position title
+                    const positionTitle = this.closest('.position-card').querySelector('.position-title').textContent;
+                    
+                    // Set the position in the dropdown
+                    const positionSelect = document.getElementById('position');
+                    for (let option of positionSelect.options) {
+                        if (option.text.includes(positionTitle.split(' ')[0])) {
+                            positionSelect.value = option.value;
+                            break;
+                        }
+                    }
+                    
+                    // Scroll to application form
+                    document.getElementById('apply').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
