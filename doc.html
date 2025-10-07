@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - HyperAstraAI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Documentation Page Specific Styles */
+        .doc-hero {
+            padding: 120px 0 60px;
+            text-align: center;
+            background-color: var(--card-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doc-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .doc-hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .doc-search {
+            max-width: 600px;
+            margin: 40px auto 0;
+            position: relative;
+        }
+
+        .doc-search input {
+            width: 100%;
+            padding: 16px 50px 16px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .doc-search input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(100, 150, 255, 0.1);
+        }
+
+        .doc-search button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .doc-layout {
+            padding: 80px 0;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .doc-sidebar {
+            position: sticky;
+            top: 100px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+        }
+
+        .doc-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .doc-nav-category {
+            margin-bottom: 25px;
+        }
+
+        .doc-nav-category h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--primary-color);
+        }
+
+        .doc-nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .doc-nav-links li {
+            margin-bottom: 8px;
+        }
+
+        .doc-nav-links a {
+            display: block;
+            padding: 8px 12px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .doc-nav-links a:hover,
+        .doc-nav-links a.active {
+            background-color: rgba(100, 150, 255, 0.1);
+            color: var(--primary-color);
+        }
+
+        .doc-content {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .doc-section {
+            margin-bottom: 50px;
+            scroll-margin-top: 100px;
+        }
+
+        .doc-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .doc-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .doc-section h3 {
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+            color: var(--primary-color);
+        }
+
+        .doc-section h4 {
+            font-size: 1.2rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--text-color);
+        }
+
+        .doc-section p {
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        .doc-section ul,
+        .doc-section ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .doc-section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .code-block {
+            background-color: #1a1a2e;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .code-block code {
+            color: #87ceeb;
+        }
+
+        .note {
+            background-color: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid #ffd700;
+            padding: 15px 20px;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .warning {
+            background-color: rgba(255, 100, 100, 0.1);
+            border-left: 4px solid #ff6b6b;
+            padding: 15px 20px;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .info-box {
+            background-color: rgba(100, 150, 255, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px 20px;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .api-endpoint {
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .endpoint-method {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        .endpoint-path {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .endpoint-description {
+            margin-top: 10px;
+            color: var(--text-muted);
+        }
+
+        .quick-start-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 2rem 0;
+        }
+
+        .quick-start-card {
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .quick-start-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .quick-start-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5rem;
+        }
+
+        .quick-start-card h4 {
+            margin-bottom: 10px;
+        }
+
+        .quick-start-card p {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-color);
+        }
+
+        .breadcrumb span {
+            margin: 0 8px;
+        }
+
+        .doc-footer-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .nav-prev,
+        .nav-next {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: var(--text-color);
+            transition: var(--transition);
+            max-width: 45%;
+        }
+
+        .nav-prev:hover,
+        .nav-next:hover {
+            background-color: rgba(100, 150, 255, 0.1);
+            transform: translateX(-2px);
+        }
+
+        .nav-next:hover {
+            transform: translateX(2px);
+        }
+
+        .nav-prev {
+            text-align: left;
+        }
+
+        .nav-next {
+            text-align: right;
+            margin-left: auto;
+        }
+
+        .nav-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .nav-title {
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .doc-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .doc-sidebar {
+                position: static;
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .doc-hero {
+                padding: 100px 0 40px;
+            }
+
+            .doc-hero h1 {
+                font-size: 2rem;
+            }
+
+            .doc-content {
+                padding: 30px 20px;
+            }
+
+            .quick-start-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .doc-footer-nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-prev,
+            .nav-next {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .doc-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .doc-sidebar {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__logo">
+                <h2>HyperAstraAI</h2>
+            </div>
+            <ul class="nav__menu" id="nav-menu">
+                <li class="nav__item">
+                    <a href="index.html" class="nav__link">Home</a>
+                </li>
+                <li class="nav__item">
+                    <a href="about.html" class="nav__link">About</a>
+                </li>
+                <li class="nav__item">
+                    <a href="features.html" class="nav__link">Features</a>
+                </li>
+                <li class="nav__item">
+                    <a href="demo.html" class="nav__link">Demo</a>
+                </li>
+                <li class="nav__item">
+                    <a href="pricing.html" class="nav__link">Pricing</a>           
+                </li>
+                <li class="nav__item">
+                    <a href="waitlist.html" class="nav__link nav__cta">Join Waitlist</a>
+                </li>
+            </ul>
+            <div class="nav__toggle" id="nav-toggle">
+                <span class="nav__toggle-line"></span>
+                <span class="nav__toggle-line"></span>
+                <span class="nav__toggle-line"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="doc-hero">
+            <div class="container">
+                <h1>HyperAstraAI Documentation</h1>
+                <p>Complete guides, API references, and tutorials for the decentralized AI compute platform</p>
+                <div class="doc-search">
+                    <input type="text" placeholder="Search documentation..." id="doc-search">
+                    <button type="button">🔍</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="doc-layout">
+                <aside class="doc-sidebar">
+                    <nav class="doc-nav">
+                        <div class="doc-nav-category">
+                            <h3>Getting Started</h3>
+                            <ul class="doc-nav-links">
+                                <li><a href="#quick-start" class="active">Quick Start Guide</a></li>
+                                <li><a href="#installation">Installation</a></li>
+                                <li><a href="#authentication">Authentication</a></li>
+                                <li><a href="#first-job">Your First Job</a></li>
+                            </ul>
+                        </div>
+                        <div class="doc-nav-category">
+                            <h3>API Reference</h3>
+                            <ul class="doc-nav-links">
+                                <li><a href="#api-overview">API Overview</a></li>
+                                <li><a href="#jobs-api">Jobs API</a></li>
+                                <li><a href="#models-api">Models API</a></li>
+                                <li><a href="#billing-api">Billing API</a></li>
+                            </ul>
+                        </div>
+                        <div class="doc-nav-category">
+                            <h3>Guides</h3>
+                            <ul class="doc-nav-links">
+                                <li><a href="#tensorflow-guide">TensorFlow Integration</a></li>
+                                <li><a href="#pytorch-guide">PyTorch Integration</a></li>
+                                <li><a href="#huggingface-guide">Hugging Face</a></li>
+                                <li><a href="#custom-models">Custom Models</a></li>
+                            </ul>
+                        </div>
+                        <div class="doc-nav-category">
+                            <h3>Advanced</h3>
+                            <ul class="doc-nav-links">
+                                <li><a href="#distributed-training">Distributed Training</a></li>
+                                <li><a href="#optimization">Performance Optimization</a></li>
+                                <li><a href="#security">Security Best Practices</a></li>
+                                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </aside>
+
+                <div class="doc-content">
+                    <div class="breadcrumb">
+                        <a href="index.html">Home</a>
+                        <span>/</span>
+                        <a href="doc.html">Documentation</a>
+                        <span>/</span>
+                        <span>Getting Started</span>
+                    </div>
+
+                    <section id="quick-start" class="doc-section">
+                        <h2>Quick Start Guide</h2>
+                        <p>Get up and running with HyperAstraAI in under 10 minutes. This guide will walk you through setting up your environment and running your first AI training job.</p>
+                        
+                        <div class="quick-start-cards">
+                            <div class="quick-start-card">
+                                <div class="quick-start-icon">1</div>
+                                <h4>Install SDK</h4>
+                                <p>Install our Python SDK using pip</p>
+                                <a href="#installation" class="btn btn--secondary">View Guide</a>
+                            </div>
+                            <div class="quick-start-card">
+                                <div class="quick-start-icon">2</div>
+                                <h4>Authenticate</h4>
+                                <p>Set up your API key and credentials</p>
+                                <a href="#authentication" class="btn btn--secondary">View Guide</a>
+                            </div>
+                            <div class="quick-start-card">
+                                <div class="quick-start-icon">3</div>
+                                <h4>Run First Job</h4>
+                                <p>Submit your first training job to our network</p>
+                                <a href="#first-job" class="btn btn--secondary">View Guide</a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="installation" class="doc-section">
+                        <h3>Installation</h3>
+                        <p>Install the HyperAstraAI Python SDK using pip:</p>
+                        
+                        <div class="code-block">
+                            <code>pip install hyperastraai</code>
+                        </div>
+
+                        <p>For development versions, you can install directly from GitHub:</p>
+                        
+                        <div class="code-block">
+                            <code>pip install git+https://github.com/hyperastraai/sdk-python.git</code>
+                        </div>
+
+                        <div class="note">
+                            <strong>Note:</strong> Python 3.8 or higher is required. We recommend using a virtual environment.
+                        </div>
+                    </section>
+
+                    <section id="authentication" class="doc-section">
+                        <h3>Authentication</h3>
+                        <p>To use the HyperAstraAI platform, you need to authenticate using your API key. You can get your API key from the dashboard after signing up.</p>
+                        
+                        <h4>Setting up your API Key</h4>
+                        <p>Set your API key as an environment variable:</p>
+                        
+                        <div class="code-block">
+                            <code>export HYPERASTRA_API_KEY='your-api-key-here'</code>
+                        </div>
+
+                        <p>Or set it directly in your code:</p>
+                        
+                        <div class="code-block">
+                            <code>import hyperastraai as haa<br><br>client = haa.Client(api_key='your-api-key-here')</code>
+                        </div>
+
+                        <div class="warning">
+                            <strong>Warning:</strong> Never commit your API key to version control. Use environment variables for production applications.
+                        </div>
+                    </section>
+
+                    <section id="first-job" class="doc-section">
+                        <h3>Your First Job</h3>
+                        <p>Here's a simple example of submitting a TensorFlow training job:</p>
+                        
+                        <div class="code-block">
+                            <code>import hyperastraai as haa<br><br># Initialize client<br>client = haa.Client()<br><br># Define job configuration<br>job_config = {<br>    "framework": "tensorflow",<br>    "model_type": "image_classification",<br>    "gpu_tier": "mid",<br>    "dataset": "cifar10",<br>    "epochs": 10,<br>    "batch_size": 32<br>}<br><br># Submit job<br>job = client.jobs.submit(job_config)<br>print(f"Job submitted with ID: {job.id}")<br><br># Monitor progress<br>job.wait_for_completion()<br>print("Job completed!")</code>
+                        </div>
+
+                        <p>For PyTorch users, the process is similar:</p>
+                        
+                        <div class="code-block">
+                            <code>import hyperastraai as haa<br><br>client = haa.Client()<br><br>job_config = {<br>    "framework": "pytorch",<br>    "model_type": "text_classification",<br>    "gpu_tier": "entry",<br>    "model": "bert-base-uncased",<br>    "dataset": "imdb",<br>    "epochs": 3<br>}<br><br>job = client.jobs.submit(job_config)<br>job.wait_for_completion()</code>
+                        </div>
+                    </section>
+
+                    <section id="api-overview" class="doc-section">
+                        <h2>API Reference</h2>
+                        <p>HyperAstraAI provides a RESTful API and Python SDK for programmatic access to all platform features.</p>
+                        
+                        <div class="api-endpoint">
+                            <div class="endpoint-method">POST</div>
+                            <div class="endpoint-path">/v1/jobs</div>
+                            <div class="endpoint-description">Submit a new training or inference job</div>
+                        </div>
+
+                        <div class="api-endpoint">
+                            <div class="endpoint-method">GET</div>
+                            <div class="endpoint-path">/v1/jobs/{job_id}</div>
+                            <div class="endpoint-description">Get job status and details</div>
+                        </div>
+
+                        <div class="api-endpoint">
+                            <div class="endpoint-method">GET</div>
+                            <div class="endpoint-path">/v1/jobs/{job_id}/logs</div>
+                            <div class="endpoint-description">Retrieve job execution logs</div>
+                        </div>
+
+                        <div class="api-endpoint">
+                            <div class="endpoint-method">DELETE</div>
+                            <div class="endpoint-path">/v1/jobs/{job_id}</div>
+                            <div class="endpoint-description">Cancel a running job</div>
+                        </div>
+                    </section>
+
+                    <section id="jobs-api" class="doc-section">
+                        <h3>Jobs API</h3>
+                        <p>The Jobs API allows you to submit, monitor, and manage AI training and inference jobs.</p>
+                        
+                        <h4>Submit a Job</h4>
+                        <div class="code-block">
+                            <code>import hyperastraai as haa<br><br>client = haa.Client()<br><br># Submit a job<br>job = client.jobs.submit(<br>    framework="tensorflow",<br>    model_type="image_classification",<br>    gpu_tier="mid",<br>    credits=50,<br>    script="training_script.py",<br>    requirements="requirements.txt"<br>)</code>
+                        </div>
+
+                        <h4>Monitor Job Progress</h4>
+                        <div class="code-block">
+                            <code># Check job status<br>status = job.status<br>print(f"Job status: {status}")<br><br># Wait for completion<br>job.wait_for_completion()<br><br># Get results<br>results = job.get_results()<br>model = results.download_model()</code>
+                        </div>
+                    </section>
+
+                    <div class="doc-footer-nav">
+                        <a href="#" class="nav-prev">
+                            <div>
+                                <div class="nav-label">Previous</div>
+                                <div class="nav-title">Getting Started Overview</div>
+                            </div>
+                        </a>
+                        <a href="#api-overview" class="nav-next">
+                            <div>
+                                <div class="nav-label">Next</div>
+                                <div class="nav-title">API Reference</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <h3>HyperAstraAI</h3>
+                    <p>Decentralized AI compute platform connecting global GPU resources with AI workloads.</p>
+                </div>
+                <div class="footer__links">
+                    <div class="footer__column">
+                        <h4>Platform</h4>
+                        <a href="features.html">Features</a>
+                        <a href="pricing.html">Pricing</a>
+                        <a href="demo.html">Demo</a>
+                    </div>
+                    <div class="footer__column">
+                        <h4>Company</h4>
+                        <a href="about.html">About</a>
+                        <a href="blog">Blog</a>
+                        <a href="career.html">Careers</a>
+                    </div>
+                    <div class="footer__column">
+                        <h4>Support</h4>
+                        <a href="help.html">Help Center</a>
+                        <a href="doc.html">Documentation</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 HyperAstraAI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Documentation search functionality
+            const docSearch = document.getElementById('doc-search');
+            const searchButton = document.querySelector('.doc-search button');
+            
+            function performSearch() {
+                const query = docSearch.value.toLowerCase().trim();
+                if (query) {
+                    // In a real implementation, this would search through documentation
+                    // For demo purposes, we'll just highlight matching sections
+                    const sections = document.querySelectorAll('.doc-section');
+                    let found = false;
+                    
+                    sections.forEach(section => {
+                        const content = section.textContent.toLowerCase();
+                        if (content.includes(query)) {
+                            section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            section.style.backgroundColor = 'rgba(100, 150, 255, 0.1)';
+                            setTimeout(() => {
+                                section.style.backgroundColor = '';
+                            }, 3000);
+                            found = true;
+                        }
+                    });
+                    
+                    if (!found) {
+                        alert('No documentation found for: ' + query);
+                    }
+                }
+            }
+            
+            searchButton.addEventListener('click', performSearch);
+            docSearch.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+
+            // Smooth scrolling for navigation links
+            const navLinks = document.querySelectorAll('.doc-nav-links a');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // Update active nav link on scroll
+            const sections = document.querySelectorAll('.doc-section');
+            const navLinksMap = new Map();
+            
+            navLinks.forEach(link => {
+                const targetId = link.getAttribute('href');
+                navLinksMap.set(targetId, link);
+            });
+            
+            function updateActiveNavLink() {
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 150;
+                    if (window.scrollY >= sectionTop) {
+                        currentSection = '#' + section.id;
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                if (currentSection && navLinksMap.has(currentSection)) {
+                    navLinksMap.get(currentSection).classList.add('active');
+                }
+            }
+            
+            window.addEventListener('scroll', updateActiveNavLink);
+            updateActiveNavLink(); // Initial call
+
+            // Mobile menu toggle
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    navToggle.classList.toggle('active');
+                });
+            }
+
+            // Add copy functionality to code blocks
+            const codeBlocks = document.querySelectorAll('.code-block');
+            
+            codeBlocks.forEach(block => {
+                block.style.position = 'relative';
+                
+                const copyButton = document.createElement('button');
+                copyButton.textContent = 'Copy';
+                copyButton.style.cssText = `
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    background: rgba(100, 150, 255, 0.2);
+                    border: 1px solid var(--primary-color);
+                    color: var(--primary-color);
+                    border-radius: 4px;
+                    padding: 4px 8px;
+                    font-size: 0.8rem;
+                    cursor: pointer;
+                    transition: var(--transition);
+                `;
+                
+                copyButton.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(100, 150, 255, 0.3)';
+                });
+                
+                copyButton.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'rgba(100, 150, 255, 0.2)';
+                });
+                
+                copyButton.addEventListener('click', function() {
+                    const code = block.querySelector('code').textContent;
+                    navigator.clipboard.writeText(code).then(() => {
+                        const originalText = this.textContent;
+                        this.textContent = 'Copied!';
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                        }, 2000);
+                    });
+                });
+                
+                block.appendChild(copyButton);
+            });
+        });
+    </script>
+</body>
+</html>
