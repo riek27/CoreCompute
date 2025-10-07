@@ -1,48 +1,82 @@
-# CoreCompute 🚀
+# HyperAstraAI
 
-**Decentralized AI Compute Network**  
+![HyperAstraAI Logo](path-to-my-logo.png)
 
-CoreCompute is a next-generation decentralized GPU network that enables anyone with idle GPUs — from gaming rigs, old data centers, laptops, or even phones — to contribute compute power and earn rewards. AI startups, university researchers, and Web3 projects can access scalable, cost-effective AI compute instantly, bypassing the traditional cloud waitlists and high costs.
-
----
-
-## 🌟 Features
-
-- **Decentralized GPU Network:** Contribute your idle GPUs or rent compute power on-demand.
-- **Cost-Effective:** Up to 90% cheaper than centralized cloud solutions.
-- **Accessible:** No long waitlists; start using compute resources immediately.
-- **Incentivized:** Contributors earn rewards based on GPU usage.
-- **Scalable:** Supports AI workloads from small labs to enterprise-grade projects.
+**HyperAstraAI** is a decentralized AI compute platform that connects global GPU resources with AI workloads. Train, run inference, and deploy models efficiently, leveraging idle GPUs worldwide — up to 70% cheaper than traditional cloud providers.
 
 ---
 
-## 🚀 MVP / Demo
+## Table of Contents
 
-Our current MVP simulates GPU allocation and job scheduling to demonstrate the potential of a fully decentralized AI compute network.  
-- Early access signups:https://riek27.github.io/CoreCompute-mvp-demo/# 
-- GitHub repo contains demo scripts for simulated workloads.
-
----
-
-## 🎯 Target Users
-
-- AI Startups
-- University Research Labs
-- Web3 / Crypto AI Projects
-- Small-to-Medium Enterprises (future expansion)
+- [Features](#features)  
+- [Demo](#demo)  
+- [Getting Started](#getting-started)  
+- [Supported Frameworks](#supported-frameworks)  
+- [Workflow](#workflow)  
+- [Credits System](#credits-system)  
+- [Help & Support](#help--support)  
+- [License](#license)  
 
 ---
 
-## 📈 Why CoreCompute?
+## Features
 
-- Solves GPU scarcity and high cost in AI infrastructure.
-- Democratizes AI compute, giving everyone access to powerful resources.
-- Builds a global network of contributors and users, creating a sustainable ecosystem.
+- **Decentralized AI Compute**: Leverage thousands of idle GPUs across the globe.  
+- **Multi-Framework Support**: TensorFlow, PyTorch, Hugging Face, and custom frameworks.  
+- **Edge Compute**: Run AI workloads near the data source for low-latency results.  
+- **Cost-Effective**: Reduce compute costs by up to 70% compared to traditional cloud.  
+- **Real-Time Monitoring**: Track job progress, metrics, and logs in real-time.  
+- **Automatic Failover**: Node failures handled automatically with checkpointing.  
 
 ---
 
-## 📂 Getting Started
+## Demo
 
-1. Clone the repo:
+Try our interactive demo to simulate AI job execution:  
+
+- Configure GPU tier, model type, and framework.  
+- Run simulations and view real-time console output.  
+- Download trained models or inference results.  
+
+[Try the Demo](https://riek27.github.io/HyperAstraAI/demo.html)  
+
+---
+
+## Getting Started
+
+1. Clone the repository:  
+
 ```bash
-git clone https://riek27.github.io/CoreCompute/ 
+git clone https://riek27.github.io/HyperAstraAI.git
+Navigate to the project directory:
+cd HyperAstraAI
+Open index.html in your browser to explore the demo.
+For production deployment, follow our platform documentation for API integration and job submission.
+Supported Frameworks
+TensorFlow
+PyTorch
+Hugging Face Transformers
+Custom ML frameworks (via API integration)
+Workflow
+Connect Your Environment: Integrate with your ML workflow using our API or web interface.
+Submit Compute Job: Define resource requirements and submit jobs to the decentralized GPU network.
+Monitor Progress: Track metrics, logs, and performance analytics in real-time.
+Receive Results: Download trained models or inference outputs directly to your environment.
+Credits System
+Credits are our platform currency for accessing GPU resources.
+One credit ≈ one hour on an entry-level GPU.
+High-tier GPUs consume more credits per hour.
+Credits never expire; volume discounts available.
+Help & Support
+Help Center
+Email: support@hyperastraai.com
+Community Forum: Engage with other users
+Documentation: API references, SDKs, tutorials
+License
+This project is licensed under the MIT License.
+HyperAstraAI — Democratizing AI compute globally.
+
+
+I can also create a **more visually appealing version with badges, GIF demo previews, and feature icons** if you want it to look top-tier for GitHub.  
+
+Do you want me to do that?
