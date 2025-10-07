@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy & Terms - HyperAstraAI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Privacy Page Specific Styles */
+        .privacy-hero {
+            padding: 120px 0 60px;
+            text-align: center;
+            background-color: var(--card-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .privacy-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .privacy-hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .privacy-content {
+            padding: 80px 0;
+        }
+
+        .privacy-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .privacy-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .privacy-tab {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .privacy-tab:hover {
+            color: var(--primary-color);
+        }
+
+        .privacy-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .privacy-section {
+            display: none;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .privacy-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .privacy-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .privacy-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .last-updated {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .privacy-body h3 {
+            font-size: 1.4rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--primary-color);
+        }
+
+        .privacy-body h4 {
+            font-size: 1.2rem;
+            margin: 2rem 0 1rem;
+            color: var(--text-color);
+        }
+
+        .privacy-body p {
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        .privacy-body ul, 
+        .privacy-body ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .privacy-body li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .privacy-body strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .note-box {
+            background-color: rgba(100, 150, 255, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .warning-box {
+            background-color: rgba(255, 100, 100, 0.1);
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .info-table th {
+            background-color: rgba(100, 150, 255, 0.1);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .info-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .quick-nav {
+            position: sticky;
+            top: 100px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+
+        .quick-nav h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .quick-nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .quick-nav-links li {
+            margin-bottom: 10px;
+        }
+
+        .quick-nav-links a {
+            display: block;
+            padding: 8px 12px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .quick-nav-links a:hover {
+            background-color: rgba(100, 150, 255, 0.1);
+            color: var(--primary-color);
+        }
+
+        .privacy-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .contact-privacy {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 50px;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+        }
+
+        .contact-privacy h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .contact-privacy p {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .privacy-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .quick-nav {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .privacy-hero {
+                padding: 100px 0 40px;
+            }
+
+            .privacy-hero h1 {
+                font-size: 2rem;
+            }
+
+            .privacy-tabs {
+                justify-content: center;
+            }
+
+            .privacy-tab {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .privacy-section {
+                padding: 30px 20px;
+            }
+
+            .privacy-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .info-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .privacy-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .privacy-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .privacy-tab {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__logo">
+                <h2>HyperAstraAI</h2>
+            </div>
+            <ul class="nav__menu" id="nav-menu">
+                <li class="nav__item">
+                    <a href="index.html" class="nav__link">Home</a>
+                </li>
+                <li class="nav__item">
+                    <a href="about.html" class="nav__link">About</a>
+                </li>
+                <li class="nav__item">
+                    <a href="features.html" class="nav__link">Features</a>
+                </li>
+                <li class="nav__item">
+                    <a href="demo.html" class="nav__link">Demo</a>
+                </li>
+                <li class="nav__item">
+                    <a href="pricing.html" class="nav__link">Pricing</a>
+                </li>
+                <li class="nav__item">
+                    <a href="waitlist.html" class="nav__link nav__cta">Join Waitlist</a>
+                </li>
+            </ul>
+            <div class="nav__toggle" id="nav-toggle">
+                <span class="nav__toggle-line"></span>
+                <span class="nav__toggle-line"></span>
+                <span class="nav__toggle-line"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="privacy-hero">
+            <div class="container">
+                <h1>Privacy Policy & Terms of Service</h1>
+                <p>Learn how we protect your data and the terms governing your use of HyperAstraAI</p>
+            </div>
+        </section>
+
+        <section class="privacy-content">
+            <div class="container">
+                <div class="privacy-container">
+                    <div class="privacy-tabs">
+                        <button class="privacy-tab active" data-tab="privacy">Privacy Policy</button>
+                        <button class="privacy-tab" data-tab="terms">Terms of Service</button>
+                        <button class="privacy-tab" data-tab="cookies">Cookie Policy</button>
+                        <button class="privacy-tab" data-tab="data-processing">Data Processing</button>
+                    </div>
+
+                    <div class="privacy-layout">
+                        <aside class="quick-nav">
+                            <h3>Quick Navigation</h3>
+                            <ul class="quick-nav-links" id="quick-nav">
+                                <!-- Dynamic links will be inserted here -->
+                            </ul>
+                        </aside>
+
+                        <div class="privacy-sections">
+                            <!-- Privacy Policy Section -->
+                            <section id="privacy" class="privacy-section active">
+                                <div class="privacy-header">
+                                    <h2>Privacy Policy</h2>
+                                    <p class="last-updated">Last updated: March 15, 2025</p>
+                                </div>
+                                <div class="privacy-body">
+                                    <p>At HyperAstraAI, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our decentralized AI compute platform.</p>
+
+                                    <h3>1. Information We Collect</h3>
+                                    <h4>Personal Information</h4>
+                                    <p>When you register for our services, we may collect:</p>
+                                    <ul>
+                                        <li><strong>Account Information:</strong> Name, email address, company details</li>
+                                        <li><strong>Billing Information:</strong> Payment details, billing address</li>
+                                        <li><strong>Profile Information:</strong> Job title, preferences, communication preferences</li>
+                                    </ul>
+
+                                    <h4>Technical Information</h4>
+                                    <p>We automatically collect:</p>
+                                    <ul>
+                                        <li><strong>Usage Data:</strong> Platform interactions, feature usage, session duration</li>
+                                        <li><strong>Device Information:</strong> IP address, browser type, operating system</li>
+                                        <li><strong>Log Data:</strong> Error reports, performance metrics, system events</li>
+                                    </ul>
+
+                                    <h4>AI Workload Data</h4>
+                                    <p>For compute jobs, we process:</p>
+                                    <ul>
+                                        <li><strong>Model Data:</strong> AI models, training scripts, configuration files</li>
+                                        <li><strong>Dataset Information:</strong> Metadata about training datasets</li>
+                                        <li><strong>Job Metrics:</strong> Performance data, resource utilization, results</li>
+                                    </ul>
+
+                                    <div class="note-box">
+                                        <p><strong>Important:</strong> We never permanently store your training data or models. All compute data is encrypted and automatically deleted after job completion.</p>
+                                    </div>
+
+                                    <h3>2. How We Use Your Information</h3>
+                                    <p>We use the collected information to:</p>
+                                    <ul>
+                                        <li>Provide and maintain our decentralized AI compute services</li>
+                                        <li>Process transactions and manage your account</li>
+                                        <li>Improve platform performance and user experience</li>
+                                        <li>Communicate important updates and security notices</li>
+                                        <li>Ensure compliance with our terms and applicable laws</li>
+                                        <li>Develop new features and services</li>
+                                    </ul>
+
+                                    <h3>3. Data Sharing and Disclosure</h3>
+                                    <p>We do not sell your personal information. We may share data with:</p>
+                                    
+                                    <table class="info-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Third Party</th>
+                                                <th>Purpose</th>
+                                                <th>Data Shared</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Payment Processors</td>
+                                                <td>Transaction processing</td>
+                                                <td>Billing information, payment details</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cloud Infrastructure</td>
+                                                <td>Service delivery</td>
+                                                <td>Technical data, compute job information</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Legal Authorities</td>
+                                                <td>Legal compliance</td>
+                                                <td>Required information for legal requests</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <h3>4. Data Security</h3>
+                                    <p>We implement industry-standard security measures:</p>
+                                    <ul>
+                                        <li><strong>Encryption:</strong> All data is encrypted in transit and at rest</li>
+                                        <li><strong>Access Controls:</strong> Strict role-based access to sensitive data</li>
+                                        <li><strong>Network Security:</strong> Firewalls, intrusion detection, DDoS protection</li>
+                                        <li><strong>Regular Audits:</strong> Security assessments and penetration testing</li>
+                                    </ul>
+
+                                    <h3>5. Data Retention</h3>
+                                    <p>We retain your information only as long as necessary:</p>
+                                    <ul>
+                                        <li><strong>Account Data:</strong> Until account deletion request</li>
+                                        <li><strong>Compute Job Data:</strong> Automatically deleted after job completion</li>
+                                        <li><strong>Billing Records:</strong> 7 years for tax and legal purposes</li>
+                                        <li><strong>Analytics Data:</strong> 2 years in aggregated, anonymized form</li>
+                                    </ul>
+
+                                    <h3>6. Your Rights</h3>
+                                    <p>You have the right to:</p>
+                                    <ul>
+                                        <li>Access and receive a copy of your personal data</li>
+                                        <li>Correct inaccurate or incomplete information</li>
+                                        <li>Delete your personal data (right to be forgotten)</li>
+                                        <li>Restrict or object to data processing</li>
+                                        <li>Data portability in a machine-readable format</li>
+                                        <li>Withdraw consent at any time</li>
+                                    </ul>
+
+                                    <h3>7. International Data Transfers</h3>
+                                    <p>As a global decentralized platform, your data may be processed in various countries. We ensure adequate protection through:</p>
+                                    <ul>
+                                        <li>Standard Contractual Clauses (SCCs)</li>
+                                        <li>Adequacy decisions where applicable</li>
+                                        <li>Binding Corporate Rules for internal transfers</li>
+                                    </ul>
+
+                                    <h3>8. Changes to This Policy</h3>
+                                    <p>We may update this Privacy Policy periodically. We will notify you of significant changes via email or platform notification. Continued use of our services after changes constitutes acceptance of the updated policy.</p>
+
+                                    <h3>9. Contact Us</h3>
+                                    <p>If you have questions about this Privacy Policy or our data practices, contact our Data Protection Officer at:</p>
+                                    <p><strong>Email:</strong> privacy@hyperastraai.com<br>
+                                    <strong>Address:</strong> 123 AI Innovation Drive, San Francisco, CA 94105</p>
+                                </div>
+                            </section>
+
+                            <!-- Terms of Service Section -->
+                            <section id="terms" class="privacy-section">
+                                <div class="privacy-header">
+                                    <h2>Terms of Service</h2>
+                                    <p class="last-updated">Last updated: March 15, 2025</p>
+                                </div>
+                                <div class="privacy-body">
+                                    <p>Welcome to HyperAstraAI. These Terms of Service govern your use of our decentralized AI compute platform and services. By accessing or using our services, you agree to be bound by these terms.</p>
+
+                                    <h3>1. Account Registration</h3>
+                                    <p>To use HyperAstraAI, you must:</p>
+                                    <ul>
+                                        <li>Be at least 18 years old or have parental consent</li>
+                                        <li>Provide accurate and complete registration information</li>
+                                        <li>Maintain the security of your account credentials</li>
+                                        <li>Notify us immediately of any unauthorized access</li>
+                                    </ul>
+
+                                    <h3>2. Acceptable Use</h3>
+                                    <p>You agree not to use our services for:</p>
+                                    <ul>
+                                        <li>Illegal activities or violation of laws</li>
+                                        <li>Generating harmful, abusive, or malicious content</li>
+                                        <li>Attempting to disrupt or compromise our infrastructure</li>
+                                        <li>Violating intellectual property rights</li>
+                                        <li>Spamming, phishing, or other fraudulent activities</li>
+                                    </ul>
+
+                                    <div class="warning-box">
+                                        <p><strong>Prohibited Content:</strong> You may not use our platform to create, train, or deploy models for hate speech, harassment, illegal activities, or any purpose that violates our ethical AI guidelines.</p>
+                                    </div>
+
+                                    <h3>3. Service Availability</h3>
+                                    <p>We strive to maintain 99.9% uptime but do not guarantee uninterrupted service. We may:</p>
+                                    <ul>
+                                        <li>Perform scheduled maintenance with advance notice</li>
+                                        <li>Suspend services for security or legal reasons</li>
+                                        <li>Limit access during periods of high demand</li>
+                                    </ul>
+
+                                    <h3>4. Intellectual Property</h3>
+                                    <h4>Your Content</h4>
+                                    <p>You retain all rights to:</p>
+                                    <ul>
+                                        <li>Your AI models, training data, and generated content</li>
+                                        <li>Custom scripts, configurations, and workflows</li>
+                                    </ul>
+
+                                    <h4>Our Platform</h4>
+                                    <p>HyperAstraAI retains all rights to:</p>
+                                    <ul>
+                                        <li>Platform software, infrastructure, and technology</li>
+                                        <li>Documentation, APIs, and proprietary algorithms</li>
+                                        <li>Branding, trademarks, and visual identity</li>
+                                    </ul>
+
+                                    <h3>5. Payment Terms</h3>
+                                    <p>Our services operate on a credit-based system:</p>
+                                    <ul>
+                                        <li>Credits are purchased in advance and are non-refundable</li>
+                                        <li>Unused credits expire after 12 months of inactivity</li>
+                                        <li>We reserve the right to change pricing with 30 days notice</li>
+                                        <li>Chargebacks may result in immediate account suspension</li>
+                                    </ul>
+
+                                    <h3>6. Termination</h3>
+                                    <p>We may suspend or terminate your account for:</p>
+                                    <ul>
+                                        <li>Violation of these terms</li>
+                                        <li>Non-payment or fraudulent activity</li>
+                                        <li>Legal or regulatory requirements</li>
+                                        <li>Platform abuse or security threats</li>
+                                    </ul>
+
+                                    <h3>7. Limitation of Liability</h3>
+                                    <p>To the maximum extent permitted by law:</p>
+                                    <ul>
+                                        <li>We are not liable for indirect, incidental, or consequential damages</li>
+                                        <li>Total liability is limited to the amount paid for services in the past 6 months</li>
+                                        <li>We are not responsible for third-party services or integrations</li>
+                                    </ul>
+
+                                    <h3>8. Governing Law</h3>
+                                    <p>These terms are governed by the laws of California, United States. Any disputes shall be resolved in the courts of San Francisco County, California.</p>
+
+                                    <h3>9. Changes to Terms</h3>
+                                    <p>We may update these terms periodically. Continued use after changes constitutes acceptance. Material changes will be communicated 30 days in advance.</p>
+                                </div>
+                            </section>
+
+                            <!-- Cookie Policy Section -->
+                            <section id="cookies" class="privacy-section">
+                                <div class="privacy-header">
+                                    <h2>Cookie Policy</h2>
+                                    <p class="last-updated">Last updated: March 15, 2025</p>
+                                </div>
+                                <div class="privacy-body">
+                                    <p>This Cookie Policy explains how HyperAstraAI uses cookies and similar technologies to recognize you when you visit our platform.</p>
+
+                                    <h3>What Are Cookies?</h3>
+                                    <p>Cookies are small text files that are stored on your device when you visit websites. They help the website remember your preferences and improve your experience.</p>
+
+                                    <h3>How We Use Cookies</h3>
+                                    <p>We use cookies for:</p>
+                                    <ul>
+                                        <li><strong>Authentication:</strong> Keeping you signed in to your account</li>
+                                        <li><strong>Security:</strong> Protecting against cross-site request forgery</li>
+                                        <li><strong>Preferences:</strong> Remembering your settings and preferences</li>
+                                        <li><strong>Analytics:</strong> Understanding how users interact with our platform</li>
+                                    </ul>
+
+                                    <h3>Types of Cookies We Use</h3>
+                                    
+                                    <table class="info-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Cookie Type</th>
+                                                <th>Purpose</th>
+                                                <th>Duration</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Essential Cookies</td>
+                                                <td>Platform functionality and security</td>
+                                                <td>Session or 1 year</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Preference Cookies</td>
+                                                <td>Remembering your settings</td>
+                                                <td>1 year</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Analytics Cookies</td>
+                                                <td>Understanding user behavior</td>
+                                                <td>2 years</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <h3>Third-Party Cookies</h3>
+                                    <p>We may use third-party services that set cookies:</p>
+                                    <ul>
+                                        <li><strong>Analytics:</strong> Google Analytics for usage statistics</li>
+                                        <li><strong>Payment Processing:</strong> Stripe for transaction processing</li>
+                                        <li><strong>Customer Support:</strong> Intercom for communication</li>
+                                    </ul>
+
+                                    <h3>Managing Cookies</h3>
+                                    <p>You can control cookies through your browser settings:</p>
+                                    <ul>
+                                        <li>Delete existing cookies from your browser</li>
+                                        <li>Block cookies from specific websites</li>
+                                        <li>Set your browser to ask for permission before setting cookies</li>
+                                    </ul>
+
+                                    <div class="note-box">
+                                        <p><strong>Note:</strong> Disabling cookies may affect platform functionality and your user experience.</p>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Data Processing Section -->
+                            <section id="data-processing" class="privacy-section">
+                                <div class="privacy-header">
+                                    <h2>Data Processing Agreement</h2>
+                                    <p class="last-updated">Last updated: March 15, 2025</p>
+                                </div>
+                                <div class="privacy-body">
+                                    <p>This Data Processing Agreement (DPA) supplements our Privacy Policy and Terms of Service for enterprise customers and users subject to data protection regulations.</p>
+
+                                    <h3>1. Roles and Responsibilities</h3>
+                                    <p><strong>Data Controller:</strong> You determine the purposes and means of processing personal data through our platform.</p>
+                                    <p><strong>Data Processor:</strong> HyperAstraAI processes personal data on your behalf according to your instructions.</p>
+
+                                    <h3>2. Processing Details</h3>
+                                    <p><strong>Subject Matter:</strong> Provision of decentralized AI compute services</p>
+                                    <p><strong>Duration:</strong> For the term of your account with HyperAstraAI</p>
+                                    <p><strong>Nature and Purpose:</strong> AI model training, inference, and related computational services</p>
+                                    <p><strong>Data Categories:</strong> Training data, model parameters, user inputs, and outputs</p>
+
+                                    <h3>3. Technical and Organizational Measures</h3>
+                                    <p>We implement comprehensive security measures:</p>
+                                    <ul>
+                                        <li><strong>Pseudonymization:</strong> Data minimization and anonymization where possible</li>
+                                        <li><strong>Encryption:</strong> AES-256 encryption for data at rest and in transit</li>
+                                        <li><strong>Access Control:</strong> Role-based access, multi-factor authentication</li>
+                                        <li><strong>Data Integrity:</strong> Checksums, backup procedures, recovery testing</li>
+                                        <li><strong>Availability:</strong> 99.9% uptime SLA, disaster recovery plans</li>
+                                    </ul>
+
+                                    <h3>4. Subprocessing</h3>
+                                    <p>We may engage subprocessors for specific services. All subprocessors are bound by data protection obligations no less protective than those in this DPA.</p>
+
+                                    <h3>5. Data Subject Rights</h3>
+                                    <p>We assist you in fulfilling data subject requests by:</p>
+                                    <ul>
+                                        <li>Providing tools to access, correct, or delete personal data</li>
+                                        <li>Implementing technical measures to restrict processing</li>
+                                        <li>Supporting data portability requests</li>
+                                    </ul>
+
+                                    <h3>6. Security Incidents</h3>
+                                    <p>In the event of a data breach, we will:</p>
+                                    <ul>
+                                        <li>Notify you without undue delay after becoming aware</li>
+                                        <li>Provide information to help you meet regulatory obligations</li>
+                                        <li>Take immediate steps to contain and remediate the incident</li>
+                                    </ul>
+
+                                    <h3>7. Data Transfer Mechanisms</h3>
+                                    <p>For international data transfers, we rely on:</p>
+                                    <ul>
+                                        <li>EU Standard Contractual Clauses</li>
+                                        <li>UK International Data Transfer Agreement</li>
+                                        <li>Swiss-US Privacy Framework</li>
+                                        <li>Other adequacy mechanisms as applicable</li>
+                                    </ul>
+
+                                    <h3>8. Audit Rights</h3>
+                                    <p>You have the right to audit our compliance with this DPA. We will provide necessary information and cooperate with reasonable audit requests.</p>
+
+                                    <h3>9. Termination</h3>
+                                    <p>Upon termination of services, we will:</p>
+                                    <ul>
+                                        <li>Return or delete all personal data as requested</li>
+                                        <li>Provide certification of data deletion upon request</li>
+                                        <li>Retain data only as required by law</li>
+                                    </ul>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <div class="contact-privacy">
+                        <h3>Questions About Our Policies?</h3>
+                        <p>If you have any questions about our Privacy Policy, Terms of Service, or data practices, please contact our privacy team.</p>
+                        <a href="contact.html" class="btn btn--primary">Contact Privacy Team</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <h3>HyperAstraAI</h3>
+                    <p>Decentralized AI compute platform connecting global GPU resources with AI workloads.</p>
+                </div>
+                <div class="footer__links">
+                    <div class="footer__column">
+                        <h4>Platform</h4>
+                        <a href="features.html">Features</a>
+                        <a href="pricing.html">Pricing</a>
+                        <a href="demo.html">Demo</a>
+                    </div>
+                    <div class="footer__column">
+                        <h4>Company</h4>
+                        <a href="about.html">About</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="career.html">Careers</a>
+                    </div>
+                    <div class="footer__column">
+                        <h4>Support</h4>
+                        <a href="help.html">Help Center</a>
+                        <a href="doc.html">Documentation</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 HyperAstraAI. All rights reserved.</p>
+                <div class="footer__legal">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="privacy.html">Terms of Service</a>
+                    <a href="privacy.html">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab functionality
+            const tabs = document.querySelectorAll('.privacy-tab');
+            const sections = document.querySelectorAll('.privacy-section');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and sections
+                    tabs.forEach(t => t.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding section
+                    this.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                    
+                    // Update quick navigation
+                    updateQuickNav(targetId);
+                });
+            });
+
+            // Generate quick navigation links
+            function updateQuickNav(activeSection) {
+                const quickNav = document.getElementById('quick-nav');
+                const activeSectionElement = document.getElementById(activeSection);
+                const headings = activeSectionElement.querySelectorAll('h3, h4');
+                
+                quickNav.innerHTML = '';
+                
+                headings.forEach(heading => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    const headingText = heading.textContent;
+                    const headingLevel = heading.tagName.toLowerCase();
+                    
+                    // Create ID if doesn't exist
+                    if (!heading.id) {
+                        heading.id = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                    }
+                    
+                    link.href = `#${heading.id}`;
+                    link.textContent = headingText;
+                    
+                    // Add indentation for h4 elements
+                    if (headingLevel === 'h4') {
+                        link.style.paddingLeft = '20px';
+                        link.style.fontSize = '0.85rem';
+                    }
+                    
+                    listItem.appendChild(link);
+                    quickNav.appendChild(listItem);
+                    
+                    // Add smooth scrolling
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+                });
+            }
+
+            // Initialize quick nav for the active section
+            updateQuickNav('privacy');
+
+            // Mobile menu toggle
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    navToggle.classList.toggle('active');
+                });
+            }
+
+            // Add active state to quick nav links when scrolling
+            function highlightQuickNav() {
+                const quickNavLinks = document.querySelectorAll('.quick-nav-links a');
+                const sections = document.querySelectorAll('.privacy-section.active h3, .privacy-section.active h4');
+                
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 150;
+                    if (window.scrollY >= sectionTop) {
+                        currentSection = '#' + section.id;
+                    }
+                });
+                
+                quickNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === currentSection) {
+                        link.classList.add('active');
+                        link.style.backgroundColor = 'rgba(100, 150, 255, 0.1)';
+                        link.style.color = 'var(--primary-color)';
+                    } else {
+                        link.style.backgroundColor = '';
+                        link.style.color = '';
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', highlightQuickNav);
+
+            // Print functionality
+            const printButton = document.createElement('button');
+            printButton.textContent = 'Print This Policy';
+            printButton.className = 'btn btn--secondary';
+            printButton.style.marginTop = '20px';
+            printButton.addEventListener('click', function() {
+                const activeSection = document.querySelector('.privacy-section.active');
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(`
+                    <html>
+                    <head>
+                        <title>${activeSection.querySelector('h2').textContent} - HyperAstraAI</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; line-height: 1.6; margin: 40px; }
+                            h1 { color: #333; border-bottom: 2px solid #6496ff; padding-bottom: 10px; }
+                            h2 { color: #6496ff; margin-top: 30px; }
+                            h3 { color: #333; margin-top: 25px; }
+                            .note { background: #f0f8ff; padding: 15px; border-left: 4px solid #6496ff; margin: 20px 0; }
+                            table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+                            th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+                            th { background-color: #f8f9fa; }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>${activeSection.querySelector('h2').textContent}</h1>
+                        <p><strong>Last updated:</strong> ${activeSection.querySelector('.last-updated').textContent.replace('Last updated: ', '')}</p>
+                        ${activeSection.querySelector('.privacy-body').innerHTML}
+                    </body>
+                    </html>
+                `);
+                printWindow.document.close();
+                printWindow.print();
+            });
+            
+            document.querySelector('.privacy-header').appendChild(printButton);
+        });
+    </script>
+</body>
+</html>
