@@ -73,7 +73,4 @@ Email: support@hyperastraai.com
 Community Forum: Engage with other users
 Documentation: API references, SDKs, tutorials
 License
-This project is licensed under the MIT License.
-HyperAstraAI — Democratizing AI compute globally.  
-
-Do you want me to do that?
+HyperAstraAI — Democratizing AI compu
