@@ -6,6 +6,482 @@
     <title>Join Waitlist - HyperAstraAI</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Waitlist Page Specific Styles */
+        .waitlist-hero {
+            padding: 120px 0 60px;
+            text-align: center;
+            background-color: var(--card-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #waitlist-particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .waitlist-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .waitlist-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .waitlist-hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .waitlist-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 50px auto 0;
+            max-width: 800px;
+        }
+
+        .waitlist-stat {
+            text-align: center;
+            padding: 25px 20px;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .waitlist-stat:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .waitlist-content {
+            padding: 80px 0;
+        }
+
+        .waitlist-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .waitlist-benefits {
+            padding: 40px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .waitlist-benefits h2 {
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .benefit-item:hover {
+            transform: translateX(5px);
+        }
+
+        .benefit-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+
+        .benefit-content h4 {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .benefit-content p {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .waitlist-form-container {
+            padding: 40px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .waitlist-form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        }
+
+        .waitlist-form-container h2 {
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .waitlist-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .waitlist-form input,
+        .waitlist-form select,
+        .waitlist-form textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .waitlist-form input:focus,
+        .waitlist-form select:focus,
+        .waitlist-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(100, 150, 255, 0.1);
+        }
+
+        .waitlist-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .early-access-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(100, 150, 255, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(100, 150, 255, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(100, 150, 255, 0);
+            }
+        }
+
+        .btn--full-width {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn--full-width::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn--full-width:hover::before {
+            left: 100%;
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            min-height: 1em;
+        }
+
+        .waitlist-success {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-animation {
+            margin-bottom: 2rem;
+        }
+
+        .success-checkmark {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--success-color), #00cc00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 2.5rem;
+            color: white;
+            animation: bounceIn 0.6s ease;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .waitlist-success h3 {
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .waitlist-success p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .position-indicator {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .next-steps {
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .next-steps h4 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .next-steps ol {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .next-steps li {
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+
+        .faq-section {
+            padding: 80px 0;
+            background-color: var(--card-bg);
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .faq-item {
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .faq-item h4 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .faq-item p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Confetti styles */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            border-radius: 50%;
+            animation: confettiFall 3s linear forwards;
+            z-index: 1000;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(1000px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .waitlist-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .waitlist-benefits {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .waitlist-hero {
+                padding: 100px 0 40px;
+            }
+
+            .waitlist-hero h1 {
+                font-size: 2rem;
+            }
+
+            .waitlist-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .waitlist-form-container,
+            .waitlist-benefits {
+                padding: 30px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .waitlist-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .waitlist-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .benefit-item {
+                padding: 15px;
+            }
+
+            .benefit-icon {
+                width: 40px;
+                height: 40px;
+                margin-right: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -43,26 +519,216 @@
 
     <main>
         <section class="waitlist-hero">
+            <canvas id="waitlist-particle-canvas"></canvas>
             <div class="container">
-                <h1>Join the Waitlist</h1>
-                <p>Be among the first to experience decentralized AI compute. Get early access and exclusive benefits.</p>
+                <h1>Join the HyperAstraAI Beta</h1>
+                <p>Be among the first to experience decentralized AI compute at scale. Get early access, exclusive benefits, and help shape the future of AI infrastructure.</p>
+                
+                <div class="waitlist-stats">
+                    <div class="waitlist-stat">
+                        <div class="stat-number">2,847</div>
+                        <div class="stat-label">Waitlist Members</div>
+                    </div>
+                    <div class="waitlist-stat">
+                        <div class="stat-number">89%</div>
+                        <div class="stat-label">Cost Savings</div>
+                    </div>
+                    <div class="waitlist-stat">
+                        <div class="stat-number">Q2 2025</div>
+                        <div class="stat-label">Public Launch</div>
+                    </div>
+                    <div class="waitlist-stat">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">GPUs in Network</div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="section container">
-            <div class="waitlist-form" id="waitlist-form-container">
-                <form id="waitlist-form" action="https://formcarry.com/s/1PxT7awBYpx" method="POST">
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required placeholder="Enter your email">
+        <section class="waitlist-content">
+            <div class="container">
+                <div class="waitlist-container">
+                    <div class="waitlist-benefits">
+                        <h2>Early Access Benefits</h2>
+                        <ul class="benefits-list">
+                            <li class="benefit-item">
+                                <div class="benefit-icon">🚀</div>
+                                <div class="benefit-content">
+                                    <h4>Priority Access</h4>
+                                    <p>Be among the first to access our platform with exclusive early adopter privileges.</p>
+                                </div>
+                            </li>
+                            <li class="benefit-item">
+                                <div class="benefit-icon">💎</div>
+                                <div class="benefit-content">
+                                    <h4>Free Credits</h4>
+                                    <p>Receive $500 in platform credits to get started with your AI workloads immediately.</p>
+                                </div>
+                            </li>
+                            <li class="benefit-item">
+                                <div class="benefit-icon">🤝</div>
+                                <div class="benefit-content">
+                                    <h4>Direct Influence</h4>
+                                    <p>Help shape our product roadmap with direct access to our founding team.</p>
+                                </div>
+                            </li>
+                            <li class="benefit-item">
+                                <div class="benefit-icon">📊</div>
+                                <div class="benefit-content">
+                                    <h4>Special Pricing</h4>
+                                    <p>Lock in early adopter pricing with lifetime discounts on our platform.</p>
+                                </div>
+                            </li>
+                            <li class="benefit-item">
+                                <div class="benefit-icon">🎯</div>
+                                <div class="benefit-content">
+                                    <h4>Beta Features</h4>
+                                    <p>Get exclusive access to new features before they're released to the public.</p>
+                                </div>
+                            </li>
+                            <li class="benefit-item">
+                                <div class="benefit-icon">💬</div>
+                                <div class="benefit-content">
+                                    <h4>Community Access</h4>
+                                    <p>Join our private Discord community of AI researchers and developers.</p>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <button type="submit" class="btn btn--primary" style="width: 100%;">Join Waitlist</button>
-                </form>
+
+                    <div class="waitlist-form-container">
+                        <h2>Join Beta Waitlist <span class="early-access-badge">Early Access</span></h2>
+                        
+                        <form class="waitlist-form" id="waitlist-form" action="https://formcarry.com/s/1PxT7awBYpx" method="POST">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="waitlist-name">Full Name *</label>
+                                    <input type="text" id="waitlist-name" name="name" required>
+                                    <div class="error-message" id="name-error"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="waitlist-email">Email Address *</label>
+                                    <input type="email" id="waitlist-email" name="email" required>
+                                    <div class="error-message" id="email-error"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="company">Company / Organization</label>
+                                <input type="text" id="company" name="company" placeholder="Where do you work or study?">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="project-type">Primary Use Case *</label>
+                                <select id="project-type" name="project-type" required>
+                                    <option value="">Select your primary use case</option>
+                                    <option value="academic">Academic Research</option>
+                                    <option value="startup">Startup / Small Business</option>
+                                    <option value="enterprise">Enterprise AI</option>
+                                    <option value="consulting">AI Consulting</option>
+                                    <option value="personal">Personal Projects</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="framework">Preferred Framework</label>
+                                <select id="framework" name="framework">
+                                    <option value="">Select your preferred framework</option>
+                                    <option value="tensorflow">TensorFlow</option>
+                                    <option value="pytorch">PyTorch</option>
+                                    <option value="huggingface">Hugging Face</option>
+                                    <option value="jax">JAX</option>
+                                    <option value="multiple">Multiple Frameworks</option>
+                                    <option value="other">Other / Custom</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="gpu-usage">Estimated Monthly GPU Usage</label>
+                                <select id="gpu-usage" name="gpu-usage">
+                                    <option value="">Select your estimated usage</option>
+                                    <option value="low">Less than 100 hours</option>
+                                    <option value="medium">100-500 hours</option>
+                                    <option value="high">500-2000 hours</option>
+                                    <option value="very-high">2000+ hours</option>
+                                    <option value="unknown">Not sure</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="use-case">Tell us about your AI projects *</label>
+                                <textarea id="use-case" name="use-case" placeholder="Describe the AI/ML models you're working on or planning to train..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn--primary btn--full-width" id="waitlist-submit">
+                                Join Waitlist
+                            </button>
+                            
+                            <p style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: var(--text-muted);">
+                                By joining, you agree to our <a href="#" style="color: var(--primary-color);">Privacy Policy</a> and terms of service.
+                            </p>
+                        </form>
+                        
+                        <div class="waitlist-success" id="waitlist-success">
+                            <div class="success-animation">
+                                <div class="success-checkmark">✓</div>
+                            </div>
+                            <h3>Welcome to the Waitlist!</h3>
+                            <div class="position-indicator">
+                                Your position: #<span id="waitlist-position">2,848</span>
+                            </div>
+                            <p>Thank you for joining the HyperAstraAI beta waitlist. We're excited to have you on board!</p>
+                            <p>We'll contact you soon with early access opportunities and platform updates.</p>
+                            
+                            <div class="next-steps">
+                                <h4>What happens next?</h4>
+                                <ol>
+                                    <li>You'll receive a confirmation email with your waitlist position</li>
+                                    <li>We'll send periodic updates about our progress and new features</li>
+                                    <li>When we're ready for you, you'll get early access instructions</li>
+                                    <li>Start training AI models with up to 70% cost savings!</li>
+                                </ol>
+                            </div>
+                            
+                            <a href="demo.html" class="btn btn--secondary">Explore Demo</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="thank-you-message" id="thank-you-message">
-                <h2>Thank You for Joining!</h2>
-                <p>We've added you to our waitlist. You'll be among the first to know when we launch.</p>
+        </section>
+
+        <section class="faq-section">
+            <div class="container">
+                <h2 class="section__title">Waitlist FAQs</h2>
+                <p class="section__subtitle">Common questions about our beta program and early access</p>
+                
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h4>When will I get access to the platform?</h4>
+                        <p>We're rolling out access in batches starting Q1 2025. Your position on the waitlist determines when you'll get access. We'll notify you via email when it's your turn.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Is there any cost to join the waitlist?</h4>
+                        <p>No, joining the waitlist is completely free. When you get access, you'll receive $500 in free credits to get started. There's no obligation to continue using the platform.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>What kind of projects is HyperAstraAI best for?</h4>
+                        <p>Our platform is ideal for AI training and inference workloads including LLMs, computer vision, reinforcement learning, and any GPU-intensive ML tasks. We support TensorFlow, PyTorch, and Hugging Face.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>How much can I save compared to cloud providers?</h4>
+                        <p>Early users are reporting 60-80% cost savings compared to AWS, Google Cloud, and Azure for comparable GPU instances. The exact savings depend on your workload and GPU requirements.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Can I use HyperAstraAI for commercial projects?</h4>
+                        <p>Yes! Many of our beta users are startups and enterprises building commercial AI products. Your models and data remain completely private and secure.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>What support is available during the beta?</h4>
+                        <p>Beta users get priority support from our engineering team, access to our private community, and regular office hours with our founders to help with any issues.</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -84,14 +750,14 @@
                     <div class="footer__column">
                         <h4>Company</h4>
                         <a href="about.html">About</a>
-                        <a href="#">Blog</a>
-                        <a href="#">Careers</a>
+                        <a href="blog.html">Blog</a>
+                        <a href="career.html">Careers</a>
                     </div>
                     <div class="footer__column">
                         <h4>Support</h4>
-                        <a href="#">Documentation</a>
-                        <a href="#">Help Center</a>
-                        <a href="#">Contact</a>
+                        <a href="help.html">Help Center</a>
+                        <a href="doc.html">Documentation</a>
+                        <a href="contact.html">Contact</a>
                     </div>
                 </div>
             </div>
@@ -101,6 +767,232 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Particle Background Animation
+            const canvas = document.getElementById('waitlist-particle-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            function setCanvasSize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            
+            setCanvasSize();
+            window.addEventListener('resize', setCanvasSize);
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.speedY = Math.random() * 1 - 0.5;
+                    this.color = `rgba(100, 150, 255, ${Math.random() * 0.5 + 0.1})`;
+                }
+                
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                }
+                
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            const particles = [];
+            const particleCount = 80;
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+            
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 100) {
+                            ctx.strokeStyle = `rgba(100, 150, 255, ${0.2 - distance/500})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                
+                requestAnimationFrame(animateParticles);
+            }
+            
+            animateParticles();
+
+            // Form validation
+            function validateForm() {
+                let isValid = true;
+                
+                // Name validation
+                const name = document.getElementById('waitlist-name');
+                const nameError = document.getElementById('name-error');
+                if (name.value.trim().length < 2) {
+                    nameError.textContent = 'Please enter your full name';
+                    isValid = false;
+                } else {
+                    nameError.textContent = '';
+                }
+                
+                // Email validation
+                const email = document.getElementById('waitlist-email');
+                const emailError = document.getElementById('email-error');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email.value)) {
+                    emailError.textContent = 'Please enter a valid email address';
+                    isValid = false;
+                } else {
+                    emailError.textContent = '';
+                }
+                
+                return isValid;
+            }
+
+            // Waitlist form submission
+            const waitlistForm = document.getElementById('waitlist-form');
+            const waitlistSuccess = document.getElementById('waitlist-success');
+            const waitlistSubmit = document.getElementById('waitlist-submit');
+            
+            waitlistForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (!validateForm()) return;
+                
+                // Show loading state
+                waitlistSubmit.disabled = true;
+                waitlistSubmit.textContent = 'Joining Waitlist...';
+                
+                // Simulate form submission to FormCarry
+                setTimeout(() => {
+                    // In a real implementation, this would be the FormCarry submission
+                    // For demo purposes, we'll just show success
+                    
+                    // Hide form and show success message
+                    waitlistForm.style.display = 'none';
+                    waitlistSuccess.style.display = 'block';
+                    
+                    // Generate random waitlist position
+                    const positionElement = document.getElementById('waitlist-position');
+                    const randomPosition = Math.floor(Math.random() * 500) + 2848;
+                    positionElement.textContent = randomPosition.toLocaleString();
+                    
+                    // Trigger confetti effect
+                    triggerConfetti();
+                    
+                    // Animate stats counter
+                    animateStatsCounter();
+                }, 2000);
+            });
+
+            // Confetti effect
+            function triggerConfetti() {
+                const confettiCount = 150;
+                const container = document.querySelector('.waitlist-form-container');
+                
+                for (let i = 0; i < confettiCount; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.animationDelay = Math.random() * 3 + 's';
+                    confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = Math.random() * 10 + 5 + 'px';
+                    container.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3000);
+                }
+            }
+
+            // Animate stats counter after form submission
+            function animateStatsCounter() {
+                const stats = document.querySelectorAll('.waitlist-stat .stat-number');
+                stats[0].textContent = '2,848';
+                
+                // Animate the first stat (waitlist members)
+                let current = 2847;
+                const target = 2848;
+                const increment = (target - current) / 30;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        current = target;
+                    }
+                    stats[0].textContent = Math.floor(current).toLocaleString();
+                }, 50);
+            }
+
+            // Mobile menu toggle
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    navToggle.classList.toggle('active');
+                });
+            }
+
+            // Add hover effects to interactive elements
+            const interactiveElements = document.querySelectorAll('.btn, .waitlist-form input, .waitlist-form select, .waitlist-form textarea, .waitlist-stat, .benefit-item');
+            
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.transition = 'transform 0.2s ease';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Real-time form validation
+            const formInputs = document.querySelectorAll('.waitlist-form input, .waitlist-form select, .waitlist-form textarea');
+            
+            formInputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.hasAttribute('required') && this.value.trim() === '') {
+                        this.style.borderColor = 'var(--error-color)';
+                    } else {
+                        this.style.borderColor = 'var(--border-color)';
+                    }
+                });
+                
+                input.addEventListener('focus', function() {
+                    this.style.borderColor = 'var(--primary-color)';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
