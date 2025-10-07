@@ -6,8 +6,12 @@
     <title>Demo - HyperAstraAI</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Particle Background Canvas -->
+    <canvas id="particle-canvas"></canvas>
+    
     <header class="header">
         <nav class="nav container">
             <div class="nav__logo">
@@ -42,43 +46,249 @@
     </header>
 
     <main>
+        <!-- Enhanced Hero Section -->
         <section class="demo-hero">
             <div class="container">
-                <h1>Platform Demo</h1>
-                <p>Experience the power of decentralized AI compute with our interactive demo.</p>
-                <a href="waitlist.html" class="btn btn--primary">Try Demo</a>
+                <div class="hero-content">
+                    <h1 class="hero-title">Democratizing AI Compute — Globally.</h1>
+                    <p class="hero-subtitle">Access thousands of idle GPUs worldwide for AI training, inference, and edge compute at up to 70% cheaper than cloud providers.</p>
+                    <div class="hero-actions">
+                        <a href="#" class="btn btn--primary btn--glow" id="run-demo-btn">Run Demo Simulation</a>
+                        <a href="waitlist.html" class="btn btn--secondary">Join Waitlist</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="globe-container">
+                        <div class="globe">
+                            <div class="globe-inner">
+                                <div class="node" style="top: 20%; left: 40%;"></div>
+                                <div class="node" style="top: 60%; left: 20%;"></div>
+                                <div class="node" style="top: 40%; left: 70%;"></div>
+                                <div class="node" style="top: 70%; left: 60%;"></div>
+                                <div class="node" style="top: 30%; left: 15%;"></div>
+                                <div class="node" style="top: 50%; left: 50%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="section">
-            <div class="demo-content container">
-                <div class="demo-container">
-                    <div class="demo-placeholder">
-                        <p>Interactive Demo Interface - Model Training Dashboard</p>
+        <!-- Job Simulation Interface -->
+        <section class="section simulation-section">
+            <div class="container">
+                <h2 class="section__title">AI Compute Simulation</h2>
+                <p class="section__subtitle">Experience our distributed GPU network in action</p>
+                
+                <div class="simulation-container">
+                    <div class="simulation-form glass-card">
+                        <h3 class="form-title">Configure Your AI Job</h3>
+                        <form id="job-form">
+                            <div class="form-group">
+                                <label for="framework">Framework</label>
+                                <select id="framework" name="framework" required>
+                                    <option value="">Select Framework</option>
+                                    <option value="tensorflow">TensorFlow</option>
+                                    <option value="pytorch">PyTorch</option>
+                                    <option value="huggingface">Hugging Face</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="model-type">Model Type</label>
+                                <select id="model-type" name="model-type" required>
+                                    <option value="">Select Model Type</option>
+                                    <option value="vision">Computer Vision</option>
+                                    <option value="nlp">Natural Language Processing</option>
+                                    <option value="generative">Generative AI</option>
+                                    <option value="reinforcement">Reinforcement Learning</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="gpu-tier">GPU Tier</label>
+                                <select id="gpu-tier" name="gpu-tier" required>
+                                    <option value="">Select GPU Tier</option>
+                                    <option value="entry">Entry (RTX 3060-3080)</option>
+                                    <option value="mid">Mid (RTX 3090, A4000)</option>
+                                    <option value="high">High (A6000, H100)</option>
+                                    <option value="cluster">Distributed Cluster</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="job-name">Job Name</label>
+                                <input type="text" id="job-name" name="job-name" placeholder="e.g., Image Classification Model" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="credits">Credits to Spend</label>
+                                <div class="range-container">
+                                    <input type="range" id="credits" name="credits" min="5" max="100" value="20" class="credits-slider">
+                                    <div class="range-value" id="credits-value">20</div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn--primary btn--glow btn--pulse" id="run-job-btn">
+                                <span class="btn-text">Run Simulation</span>
+                                <span class="btn-loading" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i> Processing...
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="simulation-output glass-card">
+                        <div class="output-header">
+                            <h3>Job Console</h3>
+                            <div class="console-controls">
+                                <button id="clear-console" class="btn-icon"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <div class="console-output" id="console-output">
+                            <div class="console-line system">[SYSTEM] Ready to run AI compute simulation...</div>
+                            <div class="console-line system">[SYSTEM] Select parameters and click "Run Simulation"</div>
+                        </div>
+                        <div class="job-complete-card" id="job-complete-card" style="display: none;">
+                            <div class="complete-header">
+                                <i class="fas fa-check-circle"></i>
+                                <h3>Job Completed Successfully</h3>
+                            </div>
+                            <div class="results-grid">
+                                <div class="result-item">
+                                    <div class="result-label">Inference Time</div>
+                                    <div class="result-value" id="result-time">2.5s</div>
+                                </div>
+                                <div class="result-item">
+                                    <div class="result-label">Accuracy</div>
+                                    <div class="result-value" id="result-accuracy">98.6%</div>
+                                </div>
+                                <div class="result-item">
+                                    <div class="result-label">GPU Nodes Used</div>
+                                    <div class="result-value" id="result-nodes">3</div>
+                                </div>
+                                <div class="result-item">
+                                    <div class="result-label">Credits Spent</div>
+                                    <div class="result-value" id="result-credits">20</div>
+                                </div>
+                                <div class="result-item highlight">
+                                    <div class="result-label">Cost Saved</div>
+                                    <div class="result-value" id="result-savings">65%</div>
+                                </div>
+                            </div>
+                            <button id="run-another-btn" class="btn btn--secondary">Run Another Job</button>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <h2 class="section__title">How It Works</h2>
-                <div class="demo-workflow">
-                    <div class="workflow-step">
-                        <div class="workflow-step__number">1</div>
-                        <h3 class="workflow-step__title">Connect Your Environment</h3>
-                        <p class="workflow-step__description">Integrate with your existing ML workflows using our API or web interface. Support for TensorFlow, PyTorch, and Hugging Face.</p>
+        <!-- Live Analytics Section -->
+        <section class="section analytics-section">
+            <div class="container">
+                <h2 class="section__title">Global Network Performance</h2>
+                <p class="section__subtitle">Real-time metrics from our decentralized GPU network</p>
+                
+                <div class="analytics-grid">
+                    <div class="analytics-card glass-card">
+                        <div class="analytics-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div class="analytics-content">
+                            <h3 class="analytics-title">Connected GPU Nodes</h3>
+                            <div class="analytics-value" id="gpu-nodes">0</div>
+                            <div class="analytics-subtitle">Active worldwide</div>
+                        </div>
                     </div>
-                    <div class="workflow-step">
-                        <div class="workflow-step__number">2</div>
-                        <h3 class="workflow-step__title">Submit Compute Job</h3>
-                        <p class="workflow-step__description">Define your resource requirements and submit training or inference jobs to our distributed network.</p>
+                    
+                    <div class="analytics-card glass-card">
+                        <div class="analytics-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="analytics-content">
+                            <h3 class="analytics-title">Total Jobs Completed</h3>
+                            <div class="analytics-value" id="jobs-completed">0</div>
+                            <div class="analytics-subtitle">Across all nodes</div>
+                        </div>
                     </div>
-                    <div class="workflow-step">
-                        <div class="workflow-step__number">3</div>
-                        <h3 class="workflow-step__title">Monitor Progress</h3>
-                        <p class="workflow-step__description">Track your job in real-time with detailed metrics, logs, and performance analytics.</p>
+                    
+                    <div class="analytics-card glass-card">
+                        <div class="analytics-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="analytics-content">
+                            <h3 class="analytics-title">Credits Distributed</h3>
+                            <div class="analytics-value" id="credits-distributed">0</div>
+                            <div class="analytics-subtitle">To node providers</div>
+                        </div>
                     </div>
-                    <div class="workflow-step">
-                        <div class="workflow-step__number">4</div>
-                        <h3 class="workflow-step__title">Receive Results</h3>
-                        <p class="workflow-step__description">Download your trained models or inference results directly to your environment.</p>
+                    
+                    <div class="analytics-card glass-card">
+                        <div class="analytics-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="analytics-content">
+                            <h3 class="analytics-title">Network Uptime</h3>
+                            <div class="analytics-value" id="network-uptime">0%</div>
+                            <div class="analytics-subtitle">Last 30 days</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Waitlist Form Section -->
+        <section class="section waitlist-section">
+            <div class="container">
+                <div class="waitlist-container glass-card">
+                    <div class="waitlist-content">
+                        <h2 class="section__title">Join Our Beta Program</h2>
+                        <p class="section__subtitle">Be among the first to experience HyperAstraAI's decentralized compute platform</p>
+                        
+                        <form id="waitlist-form" action="https://formcarry.com/s/1PxT7awBYpx" method="POST">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="waitlist-name">Full Name</label>
+                                    <input type="text" id="waitlist-name" name="name" placeholder="Enter your name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="waitlist-email">Email Address</label>
+                                    <input type="email" id="waitlist-email" name="email" placeholder="Enter your email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="project-type">Project Type</label>
+                                <select id="project-type" name="project-type" required>
+                                    <option value="">Select your project type</option>
+                                    <option value="research">Academic Research</option>
+                                    <option value="startup">Startup/Company</option>
+                                    <option value="personal">Personal Projects</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="use-case">Primary Use Case</label>
+                                <textarea id="use-case" name="use-case" placeholder="Briefly describe how you plan to use HyperAstraAI..." rows="3"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn--primary btn--glow">
+                                <span class="btn-text">Join Waitlist</span>
+                                <span class="btn-loading" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i> Submitting...
+                                </span>
+                            </button>
+                        </form>
+                        
+                        <div class="waitlist-success" id="waitlist-success" style="display: none;">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Thank You for Joining!</h3>
+                            <p>We've added you to our beta waitlist. You'll receive an invitation email when we launch.</p>
+                        </div>
                     </div>
                 </div>
             </div>
