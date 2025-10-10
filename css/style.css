@@ -1422,7 +1422,7 @@ body {
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .hero__bg,
     .waitlist-hero::before {
-        background-image: url('../assets/datacenter@2x.jpg');
+        background-image: url('../assets/datacenter.jpg');
     }
 }
 
