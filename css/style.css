@@ -246,13 +246,8 @@ body {
 }
 
 .hero__content {
+    max-width: min(700px, 90vw);
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: min(1200px, 90vw);
     margin: 0 auto;
     padding: 20px;
 }
@@ -262,10 +257,6 @@ body {
     font-weight: 700;
     margin-bottom: 20px;
     line-height: 1.2;
-    text-align: center;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .hero__subtitle {
@@ -273,10 +264,6 @@ body {
     color: var(--text-muted);
     margin-bottom: 40px;
     line-height: 1.5;
-    text-align: center;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .hero__buttons {
@@ -284,95 +271,6 @@ body {
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
-    width: 100%;
-    margin-top: 2rem;
-}
-
-/* Tier Cards - Enhanced and Centered */
-.tier-cards {
-    display: flex;
-    gap: 2rem;
-    margin: 3rem auto 0;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 1100px;
-    width: 100%;
-}
-
-.tier-card {
-    flex: 1;
-    min-width: 300px;
-    max-width: 450px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-    border-radius: 16px;
-    padding: 2.5rem 2rem;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.tier-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-}
-
-.tier-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
-}
-
-.tier-card:nth-child(2)::before {
-    background: linear-gradient(90deg, #10b981, #059669);
-}
-
-.tier-card__header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    width: 100%;
-}
-
-.tier-card__icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-    background: rgba(79, 70, 229, 0.2);
-}
-
-.tier-card:nth-child(2) .tier-card__icon {
-    background: rgba(16, 185, 129, 0.2);
-}
-
-.tier-card__title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0 0 0.5rem;
-    color: white;
-}
-
-.tier-card__description {
-    color: rgba(255,255,255,0.8);
-    line-height: 1.6;
-    margin: 0;
-    text-align: center;
-    width: 100%;
 }
 
 /* Features Section - Enhanced Grid Responsiveness */
@@ -380,7 +278,6 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
     gap: 30px;
-    justify-content: center;
 }
 
 .feature-card {
@@ -435,7 +332,6 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
     gap: 30px;
-    justify-content: center;
 }
 
 .stat {
@@ -1380,28 +1276,6 @@ body {
     .features-grid {
         gap: 20px;
     }
-    
-    /* Tier Cards Mobile Optimization */
-    .tier-cards {
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-    }
-    
-    .tier-card {
-        width: 100%;
-        max-width: 100%;
-        padding: 2rem 1.5rem;
-    }
-    
-    .tier-card__icon {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .tier-card__title {
-        font-size: 1.3rem;
-    }
 }
 
 @media (max-width: 576px) {
@@ -1452,19 +1326,6 @@ body {
     
     .footer__content {
         gap: 30px;
-    }
-    
-    /* Tier Cards Small Screen Optimization */
-    .tier-card {
-        padding: 1.5rem 1rem;
-    }
-    
-    .tier-card__title {
-        font-size: 1.2rem;
-    }
-    
-    .tier-card__description {
-        font-size: 0.9rem;
     }
 }
 
@@ -1538,8 +1399,7 @@ body {
     .pricing-card:hover,
     .analytics-card:hover,
     .workflow-step:hover,
-    .feature-card-large:hover,
-    .tier-card:hover {
+    .feature-card-large:hover {
         transform: none;
     }
     
@@ -1583,4 +1443,4 @@ body {
         padding: 20px 0;
         break-inside: avoid;
     }
-}
+}  this is the style for each, so updated it now , make them well and responsive and better
