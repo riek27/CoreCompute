@@ -7,13 +7,39 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Additional styles for the new tier cards */
+        /* Improved centering for hero content */
+        .hero__content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .hero__title {
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero__subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Enhanced tier cards styling */
         .tier-cards {
             display: flex;
             gap: 2rem;
-            margin-top: 3rem;
+            margin: 3rem auto 0;
             flex-wrap: wrap;
             justify-content: center;
+            max-width: 1100px;
+            width: 100%;
         }
         
         .tier-card {
@@ -22,13 +48,17 @@
             max-width: 450px;
             background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
             border-radius: 16px;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
         
         .tier-card:hover {
@@ -52,18 +82,20 @@
         
         .tier-card__header {
             display: flex;
+            flex-direction: column;
             align-items: center;
             margin-bottom: 1.5rem;
+            width: 100%;
         }
         
         .tier-card__icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 1rem;
+            margin-bottom: 1rem;
             background: rgba(79, 70, 229, 0.2);
         }
         
@@ -74,7 +106,7 @@
         .tier-card__title {
             font-size: 1.5rem;
             font-weight: 600;
-            margin: 0;
+            margin: 0 0 0.5rem;
             color: white;
         }
         
@@ -82,6 +114,17 @@
             color: rgba(255,255,255,0.8);
             line-height: 1.6;
             margin: 0;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .hero__buttons {
+            margin-top: 3rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
         }
         
         @media (max-width: 768px) {
@@ -94,6 +137,35 @@
                 width: 100%;
                 max-width: 100%;
             }
+            
+            .hero__buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero__buttons .btn {
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
+            }
+        }
+        
+        /* Ensure existing sections maintain proper centering */
+        .features {
+            text-align: center;
+        }
+        
+        .section__title {
+            text-align: center;
+            width: 100%;
+        }
+        
+        .features__grid {
+            justify-content: center;
+        }
+        
+        .stats__grid {
+            justify-content: center;
         }
     </style>
 </head>
@@ -143,7 +215,7 @@
                     <div class="tier-card">
                         <div class="tier-card__header">
                             <div class="tier-card__icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -160,7 +232,7 @@
                     <div class="tier-card">
                         <div class="tier-card__header">
                             <div class="tier-card__icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -252,7 +324,7 @@
                         <h4>Company</h4>
                         <a href="about.html">About</a>
                         <a href="blog.html">Blog</a>
-                        <a href="#">Careers</a>
+                        <a href="career.html">Careers</a>
                     </div>
                     <div class="footer__column">
                         <h4>Support</h4>
